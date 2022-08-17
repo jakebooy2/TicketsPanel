@@ -22,7 +22,7 @@
 </div>
 
 <style>
-    :global(body) {
+    body {
         padding: 0 !important;
     }
 

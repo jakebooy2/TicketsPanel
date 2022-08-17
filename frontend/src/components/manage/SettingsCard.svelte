@@ -166,14 +166,6 @@
   </Card>
 {/if}
 
-<svelte:head>
-  <style>
-      body {
-          overflow-y: scroll;
-      }
-  </style>
-</svelte:head>
-
 <script>
     import ChannelDropdown from "../ChannelDropdown.svelte";
     import Card from "../Card.svelte";

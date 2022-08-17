@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 
+:root {
+	--bg-color: #1D1A28;
+	--fg-color: #232330;
+}
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
 html, body {
 	position: relative;
 	width: 100%;
@@ -19,10 +28,10 @@ body {
 	line-height: 1.5;
 	font-size: 1rem;
 	font-weight: 400;
-	background-color: #121212 !important;
+	background-color: var(--bg-color) !important;
 	color: white;
 	margin: 0;
-	padding: 0 !important;
+	padding: 0;
 	box-sizing: border-box;
 }
 

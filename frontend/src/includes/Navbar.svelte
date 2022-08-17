@@ -1,135 +1,58 @@
-<div class="navbar" class:dropdown={$dropdown}>
-  <div class="wrapper" class:dropdown={$dropdown}>
-    <div>
-      <div class="burger-menu">
-        <NavElement icon="fas fa-bars" on:click={dropdownNav}>Menu</NavElement>
-      </div>
-      <div class="nav-section" class:dropdown={$dropdown}>
-        <!-- on:click required to close dropdown again -->
+<script>
+    import {Navigate} from "svelte-router-spa";
+</script>
 
-        {#if isAdmin}
-          <NavElement icon="fas fa-cogs" link="/manage/{guildId}/settings" on:click={closeDropdown}>Settings
-          </NavElement>
-        {/if}
+<div class="navbar">
+  <div class="flex-center">
+    <img src="/assets/img/logo-trans.png" class="logo" />
+  </div>
 
-        <NavElement icon="fas fa-copy" link="/manage/{guildId}/transcripts" on:click={closeDropdown}>Transcripts
-        </NavElement>
-
-        {#if isAdmin}
-          <NavElement icon="fas fa-mouse-pointer" link="/manage/{guildId}/panels" on:click={closeDropdown}>Reaction Panels</NavElement>
-          <NavElement icon="fas fa-poll-h" link="/manage/{guildId}/forms" on:click={closeDropdown}>Forms</NavElement>
-          <NavElement icon="fas fa-users" link="/manage/{guildId}/teams" on:click={closeDropdown}>Staff Teams</NavElement>
-          <NavElement icon="fas fa-robot" link="/manage/{guildId}/integrations" on:click={closeDropdown}>
-            <div style="display: flex; gap:4px">
-              Integrations
-              <Badge>New!</Badge>
-            </div>
-          </NavElement>
-        {/if}
-
-        <NavElement icon="fas fa-ticket-alt" link="/manage/{guildId}/tickets" on:click={closeDropdown}>Tickets</NavElement>
-        <NavElement icon="fas fa-ban" link="/manage/{guildId}/blacklist" on:click={closeDropdown}>Blacklist</NavElement>
-        <NavElement icon="fas fa-tags" link="/manage/{guildId}/tags" on:click={closeDropdown}>Tags</NavElement>
-      </div>
-    </div>
-    <div>
-      <div class="nav-section" class:dropdown={$dropdown}>
-        <NavElement icon="fas fa-book" link="https://docs.ticketsbot.net">Documentation</NavElement>
-        <NavElement icon="fas fa-server" link="/#">Servers</NavElement>
-        <NavElement icon="fas fa-sign-out-alt" link="/logout">Logout</NavElement>
-      </div>
-    </div>
+  <div class="links">
+    <a href="/">Home</a>
+    <a href="https://docs.ticketsbot.net">Documentation</a>
+    <a href="https://ticketsbot.net/premium">Premium</a>
   </div>
 </div>
 
-<script>
-    import NavElement from "../components/NavElement.svelte";
-    import Badge from "../components/Badge.svelte";
-
-    export let guildId;
-    export let dropdown;
-    export let permissionLevel;
-
-    $: isAdmin = permissionLevel >= 2;
-
-    function dropdownNav() {
-        dropdown.update(v => !v);
-    }
-
-    function closeDropdown() {
-        dropdown.set(false);
-    }
-</script>
-
 <style>
-    .navbar {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        background-color: #272727;
-    }
+  .navbar {
+      display: flex;
+      flex-direction: row;
+      gap: 24px;
 
-    .wrapper {
-        display: flex;
-        width: 98%;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
+      width: 100%;
 
-    .nav-section {
-        display: flex;
-        flex-direction: row;
-        gap: 15px;
-        margin: 20px 0;
-    }
+      background-color: var(--fg-color);
+      border-radius: 10px;
 
-    .burger-menu {
-        display: none;
-    }
+      padding: 5px 20px;
+  }
 
-    @media only screen and (max-width: 1154px) {
-        .nav-section {
-            display: none;
-        }
+  .flex-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
 
-        .burger-menu {
-            display: flex;
-        }
+  .logo {
+      width: 48px;
+      height: 48px;
+  }
 
-        .nav-section.dropdown {
-            display: flex;
-            flex-direction: column;
-        }
+  .links {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+  }
 
-        .wrapper {
-            flex-direction: column;
-            align-items: flex-start;
-            overflow: hidden;
-        }
+  a {
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      text-align: center;
 
-        .dropdown {
-            transition-property: height;
-        }
-
-        .navbar {
-            position: relative;
-            height: 49px;
-            transition: all .3s ease-in-out;
-            overflow: hidden;
-        }
-
-        .navbar.dropdown, .wrapper.dropdown {
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .wrapper.dropdown {
-            position: absolute;
-        }
-
-        :global(.super-container.dropdown) {
-            display: none;
-        }
-    }
+      font-size: 20px;
+      font-weight: bold;
+  }
 </style>

@@ -1,32 +1,64 @@
 <Head/>
 
-<div class="wrapper">
-    <Navbar {guildId} {permissionLevel} {dropdown} />
-    <div class="super-container" class:dropdown={$dropdown}>
+<div class="outer">
+  <div class="wrapper">
+    <ServerSidebar serverName="My Server" iconUrl="https://miro.medium.com/fit/c/176/176/0*jTQUf7SQznjDASXn.png"/>
+    <div class="main">
+      <Navbar />
+      <div class="inner" class:dropdown={$dropdown}>
         <LoadingScreen/>
         <div class="content-container" class:hide={$loadingScreen}>
-            <Route {currentRoute} {params}/>
+          <Route {currentRoute} {params}/>
         </div>
         <NotifyModal/>
+      </div>
     </div>
+  </div>
 </div>
 
 <style>
     body {
-        padding: 0 !important;
+        padding: 10px !important;
+    }
+
+    .outer {
+        padding: 10px;
+        box-sizing: border-box; /* important */
+        height: 100%;
+        width: 100%;
     }
 
     .wrapper {
-        margin: 0 !important;
-        padding: 0 !important;
+        display: flex;
+        flex-direction: row;
         width: 100%;
         height: 100%;
+
+        margin: 0 !important;
+        padding: 0 !important;
+        gap: 10px;
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        gap: 4vh;
+
+        padding: 0 20px;
+    }
+
+    .inner {
+        display: flex;
+        padding-bottom: 30px;
     }
 
     .content-container {
         display: flex;
         width: 100%;
         height: 100%;
+
+        background-color: var(--fg-color);
+        border-radius: 5px;
     }
 
     .hide {
@@ -46,6 +78,7 @@
     import axios from "axios";
     import {API_URL} from "../js/constants";
     import {setDefaultHeaders} from '../includes/Auth.svelte'
+    import ServerSidebar from "../components/ServerSidebar.svelte";
 
     export let currentRoute;
     export let params = {};
