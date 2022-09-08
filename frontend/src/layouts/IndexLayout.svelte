@@ -57,6 +57,7 @@
 <style>
     body {
         padding: 0 !important;
+        font-family: 'Poppins', sans-serif;
     }
 
     .wrapper {

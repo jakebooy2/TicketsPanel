@@ -10,7 +10,24 @@
 <style>
   select {
       width: 100%;
-  }
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-color: blue;
+    }
+
+    .form-input{
+        background-color: rgba(255, 255, 255, .08) !important;
+        transition: .2s ease-in-out;
+        width: 100%;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .form-input:hover, .form-input:focus, .form-input:active{
+        background-color: rgba(255, 255, 255, .12) !important;
+    }
+
 </style>
 
 <script>

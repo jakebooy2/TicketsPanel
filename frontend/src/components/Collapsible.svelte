@@ -1,12 +1,12 @@
-<div style="margin-bottom: 8px">
+<div style="margin-bottom: 8px" class="collapsible">
   <div style="cursor: pointer;" class="inline" on:click={toggle}>
     {#if expanded}
-      <i class="{retractIcon}"></i>
+      <i class="expand-icon {retractIcon}"></i>
     {:else}
-      <i class="{expandIcon}"></i>
+      <i class="expand-icon {expandIcon}"></i>
     {/if}
 
-    <slot name="header"></slot>
+    <b><slot name="header"></slot></b>
 
     {#if tooltip !== undefined}
       <div style="">
@@ -16,7 +16,7 @@
       </div>
     {/if}
 
-    <hr/>
+    <!-- <hr/> -->
   </div>
 
   <div bind:this={content} class="content">
@@ -73,6 +73,23 @@
 </script>
 
 <style>
+    .collapsible{
+        background-color: rgba(255, 255, 255, .04);
+        padding: 10px 15px;
+        border-radius: 4px;
+    }
+
+    .expand-icon{
+        padding: 5px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: .2s ease-in-out;
+    }
+
+    .expand-icon:hover{
+        background-color: rgba(255, 255, 255, .08);
+    }
+
     .content {
         display: flex;
         transition: max-height .3s ease-in-out, margin-top .3s ease-in-out, margin-bottom .3s ease-in-out;
@@ -87,14 +104,5 @@
         align-items: center;
         width: 100%;
         gap: 10px;
-    }
-
-    hr {
-        border-top: 1px solid #777;
-        border-bottom: 0;
-        border-left: 0;
-        border-right: 0;
-        width: 100%;
-        flex: 1;
     }
 </style>

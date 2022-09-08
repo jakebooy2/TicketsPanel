@@ -4,7 +4,7 @@
 
 <div class="navbar">
   <div class="flex-center">
-    <img src="/assets/img/logo-trans.png" class="logo" />
+    <img src="https://ticketsbot.net/assets/img/logo-trans.webp" class="logo" />
   </div>
 
   <div class="links">
@@ -12,6 +12,7 @@
     <a href="https://docs.ticketsbot.net">Documentation</a>
     <a href="https://ticketsbot.net/premium">Premium</a>
   </div>
+  <div class="flex-right"></div>
 </div>
 
 <style>
@@ -23,15 +24,22 @@
       width: 100%;
 
       background-color: var(--fg-color);
-      border-radius: 10px;
+      border-radius: 6px;
 
-      padding: 5px 20px;
+      padding: 10px 20px 7px 20px;
   }
 
   .flex-center {
       display: flex;
       justify-content: center;
       align-items: center;
+  }
+
+  .flex-right{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    float: right;
   }
 
   .logo {
@@ -44,6 +52,7 @@
       flex-direction: row;
       align-items: center;
       gap: 20px;
+      width: 87%;
   }
 
   a {
@@ -51,8 +60,10 @@
       text-decoration: none;
       cursor: pointer;
       text-align: center;
-
-      font-size: 20px;
-      font-weight: bold;
+      font-size: 16px;
+      transition: .2s ease-in-out;
+  }
+  a:hover{
+    color: var(--primary-color);
   }
 </style>

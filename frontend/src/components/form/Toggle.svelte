@@ -14,8 +14,8 @@
     export let value;
     export let label;
 
-    export let toggledColour = "#66bb6a";
-    export let untoggledColour = "#ccc";
+    export let toggledColour = "#995DF3";
+    export let untoggledColour = "rgba(255, 255, 255, .15)";
     export let inline = false;
 </script>
 
@@ -23,6 +23,10 @@
   div {
       display: flex;
       flex-direction: column;
+  }
+
+  .form-label{
+    padding-bottom: 7px !important;
   }
 
   .inline {

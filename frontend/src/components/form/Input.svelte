@@ -48,6 +48,15 @@
         width: 100%;
     }
 
+    .form-input{
+        background-color: rgba(255, 255, 255, .08) !important;
+        transition: .2s ease-in-out;
+    }
+
+    .form-input:hover, .form-input:focus, .form-input:active{
+        background-color: rgba(255, 255, 255, .12) !important;
+    }
+
     .label-wrapper {
         display: flex;
         flex-direction: row;

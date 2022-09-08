@@ -16,7 +16,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: #121212;
+        background-color: #1D1A28;
         z-index: 1001;
 
         display: flex;
@@ -26,14 +26,14 @@
     .loader,
     .loader:before,
     .loader:after {
-        background: #ffffff;
+        background: #995DF3;
         -webkit-animation: load1 1s infinite ease-in-out;
         animation: load1 1s infinite ease-in-out;
         width: 1em;
         height: 4em;
     }
     .loader {
-        color: #ffffff;
+        color: #995DF3;
         text-indent: -9999em;
         margin: 88px auto;
         position: relative;

@@ -20,9 +20,9 @@
                   {/each}
                 {/if}
               </Dropdown>
-              <Checkbox label="allow users to close tickets" bind:value={data.users_can_close}/>
-              <Checkbox label="ticket close confirmation" bind:value={data.close_confirmation}/>
-              <Checkbox label="Enable User Feedback" bind:value={data.feedback_enabled}/>
+              <Toggle label="allow users to close tickets" bind:value={data.users_can_close}/>
+              <Toggle label="ticket close confirmation" bind:value={data.close_confirmation}/>
+              <Toggle label="Enable User Feedback" bind:value={data.feedback_enabled}/>
             </div>
           </div>
         </Collapsible>

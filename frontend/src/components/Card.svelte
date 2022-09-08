@@ -37,13 +37,12 @@
     .card {
         display: flex;
         flex-direction: column;
-
-        background-color: #272727 !important;
-
         width: 100%;
         border-radius: 5px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
         transition: all .3s ease-in-out;
+        margin-bottom: 0 !important;
+        background-color: var(--fg-color);
     }
 
     .fill {
@@ -52,16 +51,20 @@
 
     .card-title {
         color: white;
-        font-size: 22px;
-        font-weight: bolder;
+        font-size: 20px;
+        font-weight: bold !important;
 
-        padding: 10px 20px;
+        font-family: 'Poppins', sans-serif;
+        padding: 10px 15px;
         margin: 0;
     }
 
     .card-header {
         display: flex;
-        border-bottom: 1px solid rgba(0, 0, 0, .125);
+
+        margin: 7px;
+        background-color: rgba(255, 255, 255, .06);
+        border-radius: 4px;
     }
 
     .card-header.dropdown {
@@ -75,7 +78,7 @@
         min-height: 75px;
 
         color: white;
-        margin: 10px 20px;
+        margin: 10px 10px;
     }
 
     .inner {
