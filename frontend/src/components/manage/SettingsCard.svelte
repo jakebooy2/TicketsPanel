@@ -150,8 +150,8 @@
           </div>
           <div slot="content" class="col-1">
             <div class="row">
-              <Colour col4 label="Success" bind:value={data.colours["0"]} disabled={!isPremium}/>
-              <Colour col4 label="Failure" bind:value={data.colours["1"]} disabled={!isPremium}/>
+              <Colour col4 label="Success" bind:color={data.colours["0"]} disabled={!isPremium}/>
+              <Colour col4 label="Failure" bind:color={data.colours["1"]} disabled={!isPremium}/>
             </div>
           </div>
         </Collapsible>

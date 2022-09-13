@@ -20,8 +20,8 @@
         <div slot="body" class="body-wrapper">
           <form class="settings-form" on:submit|preventDefault={updateColours}>
             <div class="row colour-picker-row">
-              <Colour col3={true} label="Success" bind:value={colours["0"]} disabled={!isPremium} />
-              <Colour col3={true} label="Failure" bind:value={colours["1"]} disabled={!isPremium} />
+              <Colour col3={true} label="Success" bind:color={colours["0"]} disabled={!isPremium} />
+              <Colour col3={true} label="Failure" bind:color={colours["1"]} disabled={!isPremium} />
             </div>
 
             <div class="row centre">

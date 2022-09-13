@@ -1,4 +1,4 @@
-<div style="margin-bottom: 8px" class="collapsible">
+<div style="margin-bottom: 8px;" class="collapsible">
   <div style="cursor: pointer;" class="inline" on:click={toggle}>
     {#if expanded}
       <i class="expand-icon {retractIcon}"></i>
@@ -77,6 +77,7 @@
         background-color: rgba(255, 255, 255, .04);
         padding: 10px 15px;
         border-radius: 4px;
+        position: relative;
     }
 
     .expand-icon{
@@ -93,7 +94,6 @@
     .content {
         display: flex;
         transition: max-height .3s ease-in-out, margin-top .3s ease-in-out, margin-bottom .3s ease-in-out;
-        position: relative;
         overflow: hidden;
         max-height: 0;
     }

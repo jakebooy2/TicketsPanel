@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="row">
-        <Colour col4=true label="Panel Colour" on:change={updateColour} bind:value={tempColour}/>
+        <Colour col4=true label="Panel Colour" on:change={updateColour} bind:color={tempColour}/>
         <ChannelDropdown label="Panel Channel" allowAnnouncementChannel col4 {channels} bind:value={data.channel_id}/>
         <CategoryDropdown label="Ticket Category" col4 {channels} bind:value={data.category_id}/>
         <Dropdown col4=true label="Form" bind:value={data.form_id}>

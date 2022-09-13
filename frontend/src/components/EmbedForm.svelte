@@ -1,6 +1,6 @@
 <form class="form-wrapper" on:submit|preventDefault>
   <div class="row">
-    <Colour col3 label="Embed Colour" bind:value={data.colour}/>
+    <Colour col3 label="Embed Colour" bind:color={data.colour}/>
     <Input col3 label="Title" placeholder="Embed Title" bind:value={data.title}/>
     <Input col3 label="Title URL (Optional)" placeholder="https://example.com" bind:value={data.url}/>
   </div>

@@ -8,7 +8,7 @@
   </div>
   <div class="row">
     <div class="col-1-3">
-      <Colour col1={true} label="Panel Colour" on:change={updateColour} bind:value={tempColour}/>
+      <Colour col1={true} label="Panel Colour" on:change={updateColour} bind:color={tempColour}/>
     </div>
     <div class="col-2-3">
       <ChannelDropdown col1 allowAnnouncementChannel {channels} label="Panel Channel" bind:value={data.channel_id}/>
