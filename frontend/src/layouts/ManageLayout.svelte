@@ -46,6 +46,7 @@
         gap: 4vh;
 
         padding: 0 20px;
+        width: 100%;
     }
 
     .inner {
@@ -64,6 +65,15 @@
 
     .hide {
         visibility: hidden;
+    }
+
+    :global(.page-title){
+      float: left;
+      text-align: left;
+      width: 100%;
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 15px;
     }
 </style>
 

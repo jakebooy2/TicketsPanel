@@ -1,18 +1,18 @@
 <div class="content" transition:fade>
-  <div class="card-wrapper">
+
     <Card footer={false} fill={false}>
       <span slot="title">
         Servers
       </span>
 
       <div slot="body" style="width: 100%">
-        <div id="guild-container">
+<!--        <div id="guild-container">-->
           <InviteBadge/>
 
           {#each guilds as guild}
             <Guild guild={guild}/>
           {/each}
-        </div>
+<!--        </div>-->
 
         <div class="flex-container" id="refresh-container">
           <Button icon="fas fa-sync" on:click={refreshGuilds}>
@@ -21,7 +21,6 @@
         </div>
       </div>
     </Card>
-  </div>
 </div>
 
 <script>

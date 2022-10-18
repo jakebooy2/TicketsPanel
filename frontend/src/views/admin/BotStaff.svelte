@@ -1,36 +1,43 @@
 <div class="wrapper">
-  <div class="content">
-    <Card footer="{false}" fill="{false}">
-      <h4 slot="title">Bot Staff</h4>
-      <div slot="body" class="full-width body-wrapper">
-        <form class="form-wrapper" on:submit|preventDefault={addStaff}>
-          <Input label="User ID" placeholder="585576154958921739" bind:value={tempUserId} />
-          <Button type="submit">Add</Button>
-        </form>
-
-        <table class="nice">
-          <thead>
-          <tr>
-            <th>Username</th>
-            <th>Remove</th>
-          </tr>
-          </thead>
-          <tbody>
-          {#each staff as user}
-            <tr>
-              <td>{user.username}#{user.discriminator} ({user.id})</td>
-              <td>
-                <Button type="button" danger on:click={() => removeStaff(user.id)}>
-                  Delete
-                </Button>
-              </td>
-            </tr>
-          {/each}
-          </tbody>
-        </table>
-      </div>
-    </Card>
+  <div class="page-title">
+    Admin
   </div>
+
+  <Card footer="{false}" fill="{false}">
+    <h4 slot="title">Bot Staff</h4>
+    <div slot="body" class="full-width body-wrapper">
+      <form class="form-wrapper" on:submit|preventDefault={addStaff}>
+        <Input label="User ID" placeholder="585576154958921739" bind:value={tempUserId} />
+        <Button type="submit">Add</Button>
+      </form>
+
+      <table>
+        <thead>
+        <tr>
+          <th>Username</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {#each staff as user}
+          <tr class="bg">
+            <td>{user.username}#{user.discriminator.padStart(4, '0')} ({user.id})</td>
+            <td>
+              <button type="button" class="delete-button" danger on:click={() => removeStaff(user.id)}>
+                Delete
+              </button>
+            </td>
+          </tr>
+        {/each}
+        {#if staff.length == 0}
+          <tr class="bg">
+            <td>No staff found.</td>
+          </tr>
+        {/if}
+        </tbody>
+      </table>
+    </div>
+  </Card>
 </div>
 
 <script>
@@ -94,6 +101,16 @@
         height: 100%;
         width: 100%;
         align-items: center;
+        padding: 0 25px 10px 25px;
+    }
+
+    .page-title{
+      float: left;
+      text-align: left;
+      width: 100%;
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 15px;
     }
 
     .content {
@@ -119,9 +136,53 @@
         gap: 30px;
     }
 
+    th{
+      text-align: left !important;
+      padding: 5px;
+    }
+
     .form-wrapper {
         display: flex;
         flex-direction: column;
         width: 100%;
+    }
+
+    tr.bg{
+      background: rgba(255, 255, 255, .04);
+      border-radius: 4px !important;
+      padding: 5px 15px;
+      border: none !important;
+    }
+
+    tr.bg td{
+      border-radius: 4px;
+      padding: 5px 10px;
+    }
+
+    .button-row{
+      width: 1%;
+      white-space: nowrap;
+      background: #dc3545 !important;
+      padding: 0 !important;
+    }
+
+    .button-row td{
+      padding: 0;
+    }
+
+    .delete-button{
+      padding: 5px 15px !important;
+      border: none;
+      background-color: #dc3545 !important;
+      border-color: #dc3545 !important;
+      border-radius: 4px;
+      color: white;
+      transition: .2s ease-in-out !important;
+      cursor: pointer !important;
+    }
+
+    .delete-button:hover:enabled, .delete-button:active {
+      background-color: rgba(11, 11, 11, .2) !important;
+      border-color: rgba(11, 11, 11, .2) !important;
     }
 </style>

@@ -10,7 +10,7 @@
           <span slot="header">General</span>
           <div slot="content" class="col-1">
             <div class="row">
-              <Input label="prefix (max len. 8)" placeholder="t!" col4 bind:value={data.prefix}/>
+<!--              <Input label="prefix (max len. 8)" placeholder="t!" col4 bind:value={data.prefix}/>-->
               <Number label="per user simultaneous ticket limit" min=1 max=10 bind:value={data.ticket_limit}/>
               <Dropdown label="Language" bind:value={data.language}>
                 <option value=null selected="selected">Server Default</option>
@@ -44,8 +44,8 @@
                   {/if}
                 {/each}
               </Dropdown>
-              <Checkbox label="Store Ticket Transcripts" bind:value={data.store_transcripts}/>
-              <Checkbox label="Hide Claim Button" bind:value={data.hide_claim_button}/>
+              <Toggle label="Store Ticket Transcripts" bind:value={data.store_transcripts}/>
+              <Toggle label="Hide Claim Button" bind:value={data.hide_claim_button}/>
             </div>
 
             <div class="row">
@@ -57,7 +57,7 @@
           <span slot="header">/Open Command</span>
           <div slot="content" class="col-1">
             <div class="row">
-              <Checkbox label="Disable /open Command" bind:value={data.disable_open_command}/>
+              <Toggle label="Disable /open Command" bind:value={data.disable_open_command}/>
               <CategoryDropdown label="Channel Category" col3 channels={channels} bind:value={data.category}/>
               <NamingScheme bind:value={data.naming_scheme}/>
             </div>
@@ -80,7 +80,7 @@
                 <option value="2">Administrator</option>
               </Dropdown>
 
-              <Checkbox label="Add Message Sender To Ticket" bind:value={data.context_menu_add_sender}/>
+              <Toggle label="Add Message Sender To Ticket" bind:value={data.context_menu_add_sender}/>
               <SimplePanelDropdown label="Use Settings From Panel" col3 allowNone={true} bind:panels
                                    bind:value={data.context_menu_panel}/>
             </div>
@@ -91,9 +91,9 @@
           <span slot="header">Claiming</span>
           <div slot="content" class="col-1">
             <div class="row">
-              <Checkbox label="SUPPORT REPS CAN VIEW CLAIMED TICKETS" bind:value={data.claim_settings.support_can_view}
+              <Toggle label="SUPPORT REPS CAN VIEW CLAIMED TICKETS" bind:value={data.claim_settings.support_can_view}
                         on:change={validateView}/>
-              <Checkbox label="SUPPORT REPS CAN TYPE IN CLAIMED TICKETS"
+              <Toggle label="SUPPORT REPS CAN TYPE IN CLAIMED TICKETS"
                         bind:value={data.claim_settings.support_can_type}
                         on:change={validateType}/>
             </div>
@@ -104,8 +104,8 @@
           <span slot="header">Auto Close</span>
           <div slot="content" class="col-1">
             <div class="row">
-              <Checkbox label="Enabled" bind:value={data.auto_close.enabled}/>
-              <Checkbox label="Close On User Leave" disabled={!data.auto_close.enabled}
+              <Toggle label="Enabled" bind:value={data.auto_close.enabled}/>
+              <Toggle label="Close On User Leave" disabled={!data.auto_close.enabled}
                         bind:value={data.auto_close.on_user_leave}/>
             </div>
 

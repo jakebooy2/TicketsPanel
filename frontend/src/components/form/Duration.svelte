@@ -69,6 +69,16 @@
         margin: 0;
     }
 
+    .form-input{
+      background-color: rgba(255, 255, 255, .08) !important;
+      transition: .2s ease-in-out;
+      border-right: none !important;
+    }
+
+    .form-input:hover, .form-input:focus, .form-input:active{
+      background-color: rgba(255, 255, 255, .12) !important;
+    }
+
     label {
         display: flex;
         align-items: center;
@@ -93,8 +103,9 @@
     .period {
         display: flex;
         align-items: center;
-        border-color: #2e3136 !important;
-        background-color: #2e3136 !important;
+        border: 1px solid #2e3136 !important;
+        border-left: none !important;
+        background-color: rgba(255, 255, 255, .08) !important;
         color: white !important;
         outline: none;
         border-top-right-radius: 4px;

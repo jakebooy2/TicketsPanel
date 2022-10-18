@@ -1,111 +1,120 @@
 <div class="wrapper">
-    <div class="content">
-        <div class="content-col">
-            <Card footer="{false}" fill="{false}">
-                <h4 slot="title">Bot Token</h4>
-                <div slot="body" class="full-width">
-                    <form class="full-width" onsubmit="return false;">
-                        <label class="form-label">Bot Token</label>
-                        <input name="token" type="text" bind:value={token} class="form-input full-width"
-                               placeholder="xxxxxxxxxxxxxxxxxxxxxxxx.xxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxx">
-                        <p>Note: You will not be able to view the token after submitting it</p>
-
-                        <div class="buttons">
-                            <div class="col">
-                                <Button icon="fas fa-paper-plane" on:click={submitToken} fullWidth="{true}">Submit
-                                </Button>
-                            </div>
-                            <div class="col">
-                                <Button icon="fas fa-plus" on:click={invite} fullWidth="{true}"
-                                        disabled="{bot.id === undefined}">
-                                    Generate Invite Link
-                                </Button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </Card>
-        </div>
-        <div class="content-col">
-            <Card footer="{false}" fill="{false}">
-                <h4 slot="title">Slash Commands</h4>
-                <div slot="body" class="full-width">
-                    <form class="full-width" onsubmit="return false;">
-                        <label class="form-label">Interactions Endpoint URL</label>
-                        <input name="token" type="text" bind:value={interactionUrl} class="form-input full-width"
-                               readonly>
-
-                        <label class="form-label">Public Key</label>
-                        <input name="token" type="text" bind:value={publicKey} class="form-input full-width">
-
-                        <div class="buttons">
-                            <div class="col">
-                                <Button icon="fas fa-paper-plane" on:click={updatePublicKey} fullWidth="{true}"
-                                        disabled="{bot.id === undefined}">Submit Key
-                                </Button>
-                            </div>
-                            <div class="col">
-                                <Button icon="fas fa-paper-plane" on:click={createSlashCommands} fullWidth="{true}"
-                                        disabled="{!publicKeyOk}">Create Slash Commands
-                                </Button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </Card>
-        </div>
+    <div class="page-title">
+        Whitelabel
     </div>
-    <div class="content">
-        <div class="content-col">
-            <Card footer="{false}" fill="{false}">
-                <h4 slot="title">Custom Status</h4>
-                <div slot="body" class="full-width">
-                    <form class="form-wrapper full-width" onsubmit="return false;">
-                        <div class="row">
-                            <Dropdown col3 label="Status Type" bind:value={bot.status_type}>
-                                <option value="0">Playing</option>
-                                <option value="2">Listening</option>
-                                <option value="3">Watching</option>
-                            </Dropdown>
 
-                            <div class="col-2-3">
-                                <Input col1 label="Status Text" placeholder="/help" bind:value={bot.status} />
-                            </div>
-                        </div>
+    <Card footer="{false}" fill="{false}">
+        <h4 slot="title">Bot Token</h4>
+        <div slot="body" class="full-width">
+            <form class="full-width" onsubmit="return false;">
+                <label class="form-label">Bot Token</label>
+                <input name="token" type="text" bind:value={token} class="form-input full-width"
+                       placeholder="xxxxxxxxxxxxxxxxxxxxxxxx.xxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxx">
+                <div class="tag">Note: You will not be able to view the token after submitting it</div>
 
-                        <div class="buttons">
-                            <Button icon="fas fa-paper-plane" on:click={updateStatus} fullWidth="{true}"
-                                    disabled="{bot.id === undefined}">Submit
-                            </Button>
-                        </div>
-                    </form>
+                <div class="buttons">
+                    <div class="col">
+                        <Button icon="fas fa-paper-plane" on:click={submitToken} fullWidth="{true}">Submit
+                        </Button>
+                    </div>
+                    <div class="col">
+                        <Button icon="fas fa-plus" on:click={invite} fullWidth="{true}"
+                                disabled="{bot.id === undefined}">
+                            Generate Invite Link
+                        </Button>
+                    </div>
                 </div>
-            </Card>
+            </form>
         </div>
-        <div class="content-col">
-            <Card footer="{false}" fill="{false}">
-                <h4 slot="title">Error Log</h4>
-                <div slot="body" class="full-width">
-                    <table class="error-log">
-                        <thead>
-                        <tr style="border-bottom: 1px solid #dee2e6;">
-                            <th class="table-col">Error</th>
-                            <th class="table-col">Time</th>
-                        </tr>
-                        </thead>
-                        <tbody id="error_body">
-                        {#each errors as error}
-                            <tr class="table-row table-border">
-                                <td class="table-col">{error.message}</td>
-                                <td class="table-col">{error.time.toLocaleString()}</td>
-                            </tr>
-                        {/each}
-                        </tbody>
-                    </table>
+    </Card>
+
+    <br />
+
+    <Card footer="{false}" fill="{false}">
+        <h4 slot="title">Slash Commands</h4>
+        <div slot="body" class="full-width">
+            <form class="full-width" onsubmit="return false;">
+                <label class="form-label">Interactions Endpoint URL</label>
+                <input name="token" type="text" bind:value={interactionUrl} class="form-input full-width"
+                       readonly>
+
+                <label class="form-label">Public Key</label>
+                <input name="token" type="text" bind:value={publicKey} class="form-input full-width">
+
+                <div class="buttons">
+                    <div class="col">
+                        <Button icon="fas fa-paper-plane" on:click={updatePublicKey} fullWidth="{true}"
+                                disabled="{bot.id === undefined}">Submit Key
+                        </Button>
+                    </div>
+                    <div class="col">
+                        <Button icon="fas fa-paper-plane" on:click={createSlashCommands} fullWidth="{true}"
+                                disabled="{!publicKeyOk}">Create Slash Commands
+                        </Button>
+                    </div>
                 </div>
-            </Card>
+            </form>
         </div>
-    </div>
+    </Card>
+
+    <br />
+
+    <Card footer="{false}" fill="{false}">
+        <h4 slot="title">Custom Status</h4>
+        <div slot="body" class="full-width">
+            <form class="form-wrapper full-width" onsubmit="return false;">
+                <div class="row">
+                    <Dropdown col3 label="Status Type" bind:value={bot.status_type}>
+                        <option value="0">Playing</option>
+                        <option value="2">Listening</option>
+                        <option value="3">Watching</option>
+                    </Dropdown>
+
+                    <div class="col-2-3">
+                        <Input col1 label="Status Text" placeholder="/help" bind:value={bot.status} />
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <Button icon="fas fa-paper-plane" on:click={updateStatus} fullWidth="{true}"
+                            disabled="{bot.id === undefined}">Submit
+                    </Button>
+                </div>
+            </form>
+        </div>
+    </Card>
+
+    <br />
+
+    <Card footer="{false}" fill="{false}">
+        <h4 slot="title">Error Log</h4>
+        <div slot="body" class="full-width">
+            <table class="error-log">
+                <thead>
+                <tr>
+                    <th class="table-col">Error</th>
+                    <th class="table-col">Time</th>
+                </tr>
+                </thead>
+                <tbody id="error_body">
+                {#each errors as error}
+                    <tr class="table-row">
+                        <td class="table-col error">{error.message}</td>
+                        <td class="table-col time">{error.time.toLocaleString()}</td>
+                    </tr>
+                {/each}
+                {#if errors.length == 0}
+                    <tr class="table-row">
+                        <td class="table-col error">No errors found</td>
+                        <td class="table-col time"></td>
+                    </tr>
+                {/if}
+                </tbody>
+            </table>
+        </div>
+    </Card>
+
+    <br />
 </div>
 
 <style>
@@ -115,6 +124,16 @@
         height: 100%;
         width: 100%;
         align-items: center;
+        padding: 0 25px 10px 25px;
+    }
+
+    .page-title{
+        float: left;
+        text-align: left;
+        width: 100%;
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 15px;
     }
 
     .content {
@@ -166,6 +185,16 @@
         height: 40px;
     }
 
+
+    .form-input{
+        background-color: rgba(255, 255, 255, .08) !important;
+        transition: .2s ease-in-out;
+    }
+
+    .form-input:hover, .form-input:focus, .form-input:active{
+        background-color: rgba(255, 255, 255, .12) !important;
+    }
+
     .full-width {
         width: 100%;
     }
@@ -177,19 +206,25 @@
         margin-top: 12px;
     }
 
+    #error_body{
+        border-radius: 4px !important;
+    }
+
     .error-log {
         width: 100%;
         border-collapse: collapse;
+        border-radius: 4px;
     }
 
     .table-col {
-        width: 50%;
+        width: 49%;
         text-align: left;
         padding: 5px 10px;
+        border-radius: 4px;
     }
 
     .table-border {
-        border-top: 1px solid #dee2e6;
+        border-radius: 4px;
     }
 
     .form-wrapper {
@@ -206,6 +241,24 @@
         width: 100%;
         height: 100%;
         gap: 10px;
+        border-radius: 4px;
+    }
+
+    .tag{
+        background: rgba(255, 255, 255, .06);
+        color: rgba(255, 255, 255, .6);
+        border-radius: 4px;
+        padding: 5px 10px;
+        font-size: 14px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .table-row{
+        background: rgba(255, 255, 255, .04);
+        border-radius: 4px !important;
+        padding: 5px;
+        border: none !important;
     }
 </style>
 

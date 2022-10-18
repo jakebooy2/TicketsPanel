@@ -5,15 +5,11 @@
 {/if}
 
 <form class="settings-form" on:submit|preventDefault>
-    <div class="row">
-        <div class="col-1-3">
-            <Input label="Panel Title" placeholder="Open a ticket!" col1=true bind:value={data.title}/>
-        </div>
-        <div class="col-2-3">
-            <Textarea col1=true label="Panel Content" placeholder="By clicking the button, a ticket will be opened for you."
-                bind:value={data.content}/>
-        </div>
-    </div>
+    <Input label="Panel Title" placeholder="Open a ticket!" col1=true bind:value={data.title}/>
+
+    <Textarea col1=true label="Panel Content" placeholder="By clicking the button, a ticket will be opened for you."
+              bind:value={data.content}/>
+
     <div class="row">
         <Colour col4=true label="Panel Colour" on:change={updateColour} bind:color={tempColour}/>
         <ChannelDropdown label="Panel Channel" allowAnnouncementChannel col4 {channels} bind:value={data.channel_id}/>
@@ -64,10 +60,13 @@
         </div>
     </div>
     <div class="row" style="justify-content: center">
-        <div class="col-3">
+        <div class="col-3" style="margin-right: 5px;">
             <Button icon="fas fa-sliders-h" fullWidth=true type="button"
                     on:click={toggleAdvancedSettings}>Toggle Advanced Settings
             </Button>
+        </div>
+        <div class="col-3" style="margin-left: 5px">
+            <Button icon="fas fa-paper-plane" fullWidth={true} on:click={createPanel}>Submit</Button>
         </div>
     </div>
     <div class="row advanced-settings" class:advanced-settings-show={advancedSettings}
@@ -159,6 +158,7 @@
 
     export let guildId;
     export let seedDefault = true;
+    export let createPanel;
 
     const dispatch = createEventDispatcher();
 

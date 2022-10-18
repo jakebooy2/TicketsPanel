@@ -1,6 +1,6 @@
 <div class="content">
   <div class="col">
-    <Card footer footerRight ref="filter-card">
+    <Card footer="{false}" ref="filter-card">
       <span slot="title">
         <i class="fas fa-filter"></i>
         Filter Logs
@@ -12,13 +12,6 @@
             <Input col4=true label="Ticket ID" placeholder="Ticket ID"
                    on:input={handleInputTicketId} bind:value={filterSettings.ticketId}/>
 
-            <Input col4=true label="Username" placeholder="Username" on:input={handleInputUsername}
-                   bind:value={filterSettings.username}/>
-
-            <Input col4=true label="User ID" placeholder="User ID" on:input={handleInputUserId}
-                   bind:value={filterSettings.userId}/>
-          </div>
-          <div class="row">
             <div class="col-4">
               <PanelDropdown label="Panel" isMulti={false} bind:panels bind:selected={selectedPanel} />
             </div>
@@ -32,11 +25,18 @@
               <option value=5>5 ⭐</option>
             </Dropdown>
           </div>
+          <div class="row">
+            <Input col4=true label="Username" placeholder="Username" on:input={handleInputUsername}
+                   bind:value={filterSettings.username}/>
+
+            <Input col4=true label="User ID" placeholder="User ID" on:input={handleInputUserId}
+                   bind:value={filterSettings.userId}/>
+
+          </div>
+            <Button icon="fas fa-search" on:click={filter}>Filter</Button>
         </div>
       </div>
-      <div slot="footer">
-        <Button icon="fas fa-search" on:click={filter}>Filter</Button>
-      </div>
+
     </Card>
 
     <div style="margin: 2% 0;">
@@ -46,7 +46,7 @@
         </span>
 
         <div slot="body" class="main-col">
-          <table class="nice">
+          <table>
             <thead>
             <tr>
               <th>Ticket ID</th>
@@ -58,7 +58,7 @@
             </thead>
             <tbody>
             {#each transcripts as transcript}
-              <tr>
+              <tr class="bg">
                 <td>{transcript.ticket_id}</td>
                 <td>{transcript.username}</td>
                 <td>
@@ -75,6 +75,8 @@
                       <Button>View</Button>
                     </Navigate>
                   </td>
+                {:else}
+                    <td>no transcript available</td>
                 {/if}
               </tr>
             {/each}
@@ -82,9 +84,9 @@
           </table>
 
           <div class="nav" class:nav-margin={transcripts.length === 0}>
-            <i class="fas fa-chevron-left" class:hidden={page === 1} on:click={loadPrevious}></i>
+            <i class="fas fa-chevron-left left" class:hidden={page === 1} on:click={loadPrevious}></i>
             <span>Page {page}</span>
-            <i class="fas fa-chevron-right"
+            <i class="fas fa-chevron-right right"
                class:hidden={transcripts.length < pageLimit || transcripts[transcripts.length - 1].ticket_id === 1}
                on:click={loadNext}></i>
           </div>
@@ -286,7 +288,6 @@
     :global(table.nice > thead > tr > th) {
         text-align: left;
         font-weight: normal;
-        border-bottom: 1px solid #dee2e6;
         padding-left: 10px;
         padding-right: 10px;
     }
@@ -308,15 +309,39 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        padding: 5px;
+        margin: 10px auto 7px auto;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, .08);
+        transition: .2s ease-in-out;
     }
 
     .nav > i {
-        color: #1dc7ea;
+        color: white;
         cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, .08);
+        transition: .2s ease-in-out;
+    }
+
+    .nav > i:not(.hidden):hover{
+        background: #995DF3;
+    }
+
+    .nav > i.left{
+        margin-right: 5px;
+    }
+
+    .nav > i.right{
+        margin-left: 5px;
     }
 
     .nav > span {
         margin: 0 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, .7);
     }
 
     .nav-margin {
@@ -324,7 +349,7 @@
     }
 
     .hidden {
-        color: #6c757d !important;
+        color: rgba(255, 255, 255, .12) !important;
         cursor: default !important;
     }
 
@@ -346,5 +371,33 @@
         .reason {
             display: none;
         }
+    }
+
+
+    tr.bg{
+      background: rgba(255, 255, 255, .04);
+      border-radius: 4px !important;
+      padding: 5px 15px;
+      border: none !important;
+    }
+
+    tr.bg td{
+      border-radius: 4px;
+      padding: 5px 10px;
+    }
+
+    .button-row{
+      width: 1%;
+      white-space: nowrap;
+      background: #dc3545 !important;
+      padding: 0 !important;
+    }
+
+    .button-row td{
+      padding: 0;
+    }
+
+    th{
+      text-align: left;
     }
 </style>

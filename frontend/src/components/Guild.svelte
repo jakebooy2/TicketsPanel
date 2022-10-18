@@ -61,14 +61,11 @@
     :global(.guild-badge) {
         display: flex;
         align-items: center;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-
-        width: 33%;
-        background-color: #121212;
-        height: 100px;
-        margin-bottom: 10px;
-        border-radius: 10px;
+        background-color: rgba(255, 255, 255, .06);
+        border-radius: 6px;
         cursor: pointer;
+        padding: 10px 0;
+        margin-bottom: 5px;
     }
 
     @media (max-width: 950px) {
@@ -78,25 +75,26 @@
     }
 
     :global(.guild-icon-bg) {
-        height: 80px;
-        width: 80px;
+        height: 52px;
+        width: 52px;
         background-color: #272727;
-        border-radius: 50%;
+        border-radius: 6px;
         margin-left: 10px;
+        transition: .2s ease-in-out;
     }
 
     :global(.guild-icon) {
-        height: 80px;
-        width: 80px;
+        height: 52px;
+        width: 52px;
         border-radius: 50%;
     }
 
     :global(.guild-icon-fa) {
         border-radius: 50%;
         color: white;
-        font-size: 60px !important;
-        width: 80px;
-        height: 80px;
+        font-size: 32px !important;
+        width: 52px;
+        height: 52px;
         text-align: center;
         margin-top: 10px;
     }
@@ -104,5 +102,9 @@
     :global(.guild-name) {
         color: white !important;
         padding-left: 10px;
+    }
+
+    :global(.guild-badge):hover :global(.guild-icon-bg){
+      background: #995DF3;
     }
 </style>

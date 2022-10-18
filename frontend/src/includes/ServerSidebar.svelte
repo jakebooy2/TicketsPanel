@@ -7,6 +7,10 @@
   <div class="content">
     <!-- isAdmin var needed for checks -->
 
+      <Navigate to="/" styles="sidebar-link">
+          ← Back to Servers
+      </Navigate>
+
     <Navigate to="/manage/{guildId}/settings" styles="sidebar-link">
         Settings
     </Navigate>

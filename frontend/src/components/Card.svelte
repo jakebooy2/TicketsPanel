@@ -11,9 +11,11 @@
 <div class="card" class:fill>
   <div class="card-header" class:dropdown on:click={() => dropdownActive = dropdown && !dropdownActive}>
     <h4 class="card-title">
-      <slot name="title">
-        No Title :(
-      </slot>
+      <b>
+        <slot name="title">
+          No Title :(
+        </slot>
+      </b>
     </h4>
   </div>
   <div class="card-body" class:dropdown class:dropdownActive class:dropdownInactive={dropdown && !dropdownActive} {ref}>

@@ -22,5 +22,15 @@
     textarea {
         width: 100%;
         min-height: var(--min-height);
+        font-size: 14px;
+    }
+
+    textarea{
+      background-color: rgba(255, 255, 255, .08) !important;
+      transition: .2s ease-in-out;
+    }
+
+    textarea:hover, textarea:focus, textarea:active{
+      background-color: rgba(255, 255, 255, .12) !important;
     }
 </style>

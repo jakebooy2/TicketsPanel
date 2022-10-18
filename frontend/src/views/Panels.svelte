@@ -24,117 +24,228 @@
   </ConfirmationModal>
 {/if}
 
+
 <div class="wrapper">
-  <div class="col-main">
-    <div class="row">
-      <Card footer="{false}">
-        <span slot="title">Your Reaction Panels</span>
-        <div slot="body" class="card-body">
-          <p>Your panel quota: <b>{panels.length} / {isPremium ? '∞' : '3'}</b></p>
+  {#if activePage === 'PANELS'}
+  <Card footer="{false}">
+    <span slot="title">Your Reaction Panels</span>
+    <div slot="body" class="card-body">
+      <div style="float: right;">
+        <div class="tag">Your panel quota: <b>{panels.length} / {isPremium ? '∞' : '3'}</b></div>
+        <button class="new-button" on:click={() => setActivePage('CREATE_PANEL')}>New Panel</button>
+      </div>
+      <table style="margin-top: 10px">
+        <thead>
+        <tr>
+          <th>Channel</th>
+          <th>Panel Title</th>
+          <th class="category-col">Ticket Channel Category</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {#each panels as panel}
+          <tr class="transcript">
+            <td class="left">#{channels.find((c) => c.id === panel.channel_id)?.name ?? 'Unknown Channel'}</td>
+            <td>{panel.title}</td>
+            <td class="category-col">{channels.find((c) => c.id === panel.category_id)?.name ?? 'Unknown Category'}</td>
+            <td class="button-row">
+              <Button on:click={() => resendPanel(panel.panel_id)}>Resend</Button>
+            </td>
+            <td class="button-row">
+              <Button on:click={() => openEditModal(panel.panel_id)}>Edit</Button>
+            </td>
+            <td class="button-row right">
+              <Button on:click={() => panelToDelete = panel}>Delete</Button>
+            </td>
+          </tr>
+        {/each}
+        </tbody>
+      </table>
+    </div>
+  </Card>
+  {/if}
 
-          <table style="margin-top: 10px">
-            <thead>
-            <tr>
-              <th>Channel</th>
-              <th>Panel Title</th>
-              <th class="category-col">Ticket Channel Category</th>
-              <th>Resend</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            {#each panels as panel}
-              <tr>
-                <td>#{channels.find((c) => c.id === panel.channel_id)?.name ?? 'Unknown Channel'}</td>
-                <td>{panel.title}</td>
-                <td class="category-col">{channels.find((c) => c.id === panel.category_id)?.name ?? 'Unknown Category'}</td>
-                <td>
-                  <Button on:click={() => resendPanel(panel.panel_id)}>Resend</Button>
-                </td>
-                <td>
-                  <Button on:click={() => openEditModal(panel.panel_id)}>Edit</Button>
-                </td>
-                <td>
-                  <Button on:click={() => panelToDelete = panel}>Delete</Button>
-                </td>
-              </tr>
-            {/each}
-            </tbody>
-          </table>
-        </div>
-      </Card>
-    </div>
-    <div class="row">
-      <Card footer="{false}">
-        <span slot="title">Create Panel</span>
+  {#if activePage === 'CREATE_PANEL'}
+    <div class="back-to-panels" on:click={() => setActivePage('PANELS')}>← back to panels</div>
+  <Card footer="{false}">
+    <span slot="title">Create Panel</span>
 
-        <div slot="body" class="body-wrapper">
-          {#if !$loadingScreen}
-            <PanelCreationForm {guildId} {channels} {roles} {emojis} {teams} {forms} bind:data={panelCreateData}/>
-            <div style="display: flex; justify-content: center">
-              <div class="col-3">
-                <Button icon="fas fa-paper-plane" fullWidth={true} on:click={createPanel}>Submit</Button>
-              </div>
-            </div>
-          {/if}
-        </div>
-      </Card>
+    <div slot="body" class="body-wrapper">
+      {#if !$loadingScreen}
+        <PanelCreationForm {guildId} {channels} {roles} {emojis} {teams} {forms} {createPanel} bind:data={panelCreateData}/>
+      {/if}
     </div>
-  </div>
-  <div class="col-small">
-    <div class="row">
-      <Card footer="{false}">
-        <span slot="title">Your Multi-Panels</span>
-        <div slot="body" class="card-body">
-          <table style="margin-top: 10px">
-            <thead>
-            <tr>
-              <th>Embed Title</th>
-              <th>Resend</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            {#each multiPanels as panel}
-              <tr>
-                <td>{panel.title}</td>
-                <td>
-                  <Button on:click={() => resendMultiPanel(panel.id)}>Resend</Button>
-                </td>
-                <td>
-                  <Button on:click={() => openMultiEditModal(panel.id)}>Edit</Button>
-                </td>
-                <td>
-                  <Button on:click={() => multiPanelToDelete = panel}>Delete</Button>
-                </td>
-              </tr>
-            {/each}
-            </tbody>
-          </table>
-        </div>
-      </Card>
-    </div>
-    <div class="row">
-      <Card footer={false}>
-        <span slot="title">Create Multi-Panel</span>
-        <div slot="body" class="card-body">
-          <p>Note: The panels which you wish to combine into a multi-panel must already exist</p>
+  </Card>
+  {/if}
 
-          {#if !$loadingScreen}
-            <div style="margin-top: 10px">
-              <MultiPanelCreationForm {guildId} {channels} {panels} bind:data={multiPanelCreateData}/>
-              <div style="display: flex; justify-content: center; margin-top: 2%">
-                <Button icon="fas fa-paper-plane" fullWidth={true} on:click={createMultiPanel}>Submit</Button>
-              </div>
-            </div>
-          {/if}
-        </div>
-      </Card>
+  {#if activePage === 'PANELS'}
+    <br />
+  <Card footer="{false}">
+    <span slot="title">Your Multi-Panels</span>
+    <div slot="body" class="card-body">
+      <table style="margin-top: 10px">
+        <thead>
+        <tr>
+          <th>Embed Title</th>
+          <th>Resend</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {#each multiPanels as panel}
+          <tr>
+            <td>{panel.title}</td>
+            <td>
+              <Button on:click={() => resendMultiPanel(panel.id)}>Resend</Button>
+            </td>
+            <td>
+              <Button on:click={() => openMultiEditModal(panel.id)}>Edit</Button>
+            </td>
+            <td>
+              <Button on:click={() => multiPanelToDelete = panel}>Delete</Button>
+            </td>
+          </tr>
+        {/each}
+        </tbody>
+      </table>
     </div>
-  </div>
+  </Card>
+  {/if}
 </div>
+<!--  <div class="col-main">-->
+<!--    <div class="row">-->
+
+<!--    </div>-->
+<!--    <div class="row">-->
+
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="col-small">-->
+<!--    <div class="row">-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--      <Card footer={false}>-->
+<!--        <span slot="title">Create Multi-Panel</span>-->
+<!--        <div slot="body" class="card-body">-->
+<!--          <p>Note: The panels which you wish to combine into a multi-panel must already exist</p>-->
+
+<!--          {#if !$loadingScreen}-->
+<!--            <div style="margin-top: 10px">-->
+<!--              <MultiPanelCreationForm {guildId} {channels} {panels} bind:data={multiPanelCreateData}/>-->
+<!--              <div style="display: flex; justify-content: center; margin-top: 2%">-->
+<!--                <Button icon="fas fa-paper-plane" fullWidth={true} on:click={createMultiPanel}>Submit</Button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          {/if}-->
+<!--        </div>-->
+<!--      </Card>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<style>
+  .card{
+    width: 100%;
+    display: block;
+  }
+  .wrapper {
+    height: 100%;
+    width: 100%;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  table *{
+    border: none !important;
+  }
+
+  th {
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 1px solid #dee2e6;
+    padding-left: 10px;
+  }
+
+  tr {
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  tr.transcript{
+    background: rgba(255, 255, 255, .04);
+    margin-top: 5px;
+  }
+
+  .button-row{
+    width: 1%;
+    white-space: nowrap;
+    padding: 5px !important;
+  }
+
+   .button-row :global(button){
+    padding: 5px 10px !important;
+  }
+
+  .button-row td{
+    padding: 0;
+  }
+
+  td {
+    padding: 10px 0 10px 10px;
+    border-radius: 6px;
+  }
+
+  :global(.fill){
+    height: unset !important;
+  }
+
+  .tag{
+    padding: 7px 25px;
+    background: rgba(255, 255, 255, .08);
+    border-radius: 6px;
+    color: white;
+    margin: 0 auto 10px auto !important;
+    display: inline-block;
+    font-family: 'Poppins', sans-serif !important;
+  }
+
+  .card-body{
+    width: 100%;
+  }
+
+  .new-button{
+    border: none;
+    border-radius: 6px;
+    height: 38px;
+    background: #995DF3;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 0 15px;
+  }
+  .new-button:hover{
+    background: #8a45f1;
+  }
+  .back-to-panels{
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 3px 10px;
+    transition: .2s ease-in-out;
+    display: inline-block;
+  }
+  .back-to-panels:hover{
+    color: #995DF3;
+  }
+</style>
+
 
 <script>
     import Card from "../components/Card.svelte";
@@ -175,6 +286,12 @@
     let editData;
     let multiPanelCreateData;
     let multiPanelEditData;
+
+    let activePage = "CREATE_PANEL";
+
+    function setActivePage(page){
+      activePage = page;
+    }
 
     function openEditModal(panelId) {
         editData = panels.find((p) => p.panel_id === panelId);
@@ -387,91 +504,3 @@
       ]);
     });
 </script>
-
-<style>
-    .wrapper {
-        display: flex;
-        flex-direction: row;
-        height: 100%;
-        width: 100%;
-        margin-top: 30px;
-    }
-
-    .body-wrapper {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .col-main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 65%;
-        height: 100%;
-    }
-
-    .col-small {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 35%;
-        height: 100%;
-    }
-
-    .row {
-        display: flex;
-        width: 96%;
-        height: 100%;
-        margin-bottom: 2%;
-    }
-
-    .card-body {
-        width: 100%;
-    }
-
-    @media only screen and (max-width: 1100px) {
-        .wrapper {
-            flex-direction: column;
-        }
-
-        .col-main, .col-small {
-            width: 100%;
-            margin-bottom: 4%;
-        }
-    }
-
-    @media only screen and (max-width: 576px) {
-        .category-col {
-            display: none;
-        }
-
-        .row {
-            width: 100%;
-        }
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    th {
-        text-align: left;
-        font-weight: normal;
-        border-bottom: 1px solid #dee2e6;
-        padding-left: 10px;
-    }
-
-    tr {
-        border-bottom: 1px solid #dee2e6;
-    }
-
-    tr:last-child {
-        border-bottom: none;
-    }
-
-    td {
-        padding: 10px 0 10px 10px;
-    }
-</style>

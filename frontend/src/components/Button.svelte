@@ -28,11 +28,11 @@
         text-align: center;
 
         color: white;
-        background-color: #3472f7;
-        border-color: #3472f7;
-        border-width: 2px;
+        background-color: #995DF3;
+        border: none;
         border-radius: .25rem;
         margin: 0;
+        padding: 10px 15px;
 
         cursor: pointer;
         transition: background-color 150ms ease-in-out, border-color 150ms ease-in-out;
@@ -40,14 +40,14 @@
     }
 
     button:active, button:hover:enabled {
-        background-color: #0062cc;
-        border-color: #0062cc;
+        background-color: #8a45f1;
+        border-color: #8a45f1;
     }
 
     button:disabled {
-        background-color: #6c757d;
-        border-color: #6c757d;
+        background-color: rgba(255, 255, 255, .2);
         cursor: default;
+        opacity: .4;
     }
 
     .content {

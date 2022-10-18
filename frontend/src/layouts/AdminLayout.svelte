@@ -1,12 +1,16 @@
 <Head/>
-
-<div class="wrapper">
-  <AdminSidebar />
-  <div class="super-container">
-    <LoadingScreen/>
-    <NotifyModal/>
-    <div class="content-container" class:hide={$loadingScreen}>
-      <Route {currentRoute} {params}/>
+<div class="outer">
+  <div class="wrapper">
+    <IndexSidebar />
+    <div class="main">
+      <Navbar />
+      <div class="inner">
+        <LoadingScreen/>
+        <div class="content-container" class:hide={$loadingScreen}>
+          <Route {currentRoute} {params}/>
+        </div>
+        <NotifyModal/>
+      </div>
     </div>
   </div>
 </div>
@@ -23,6 +27,8 @@
     import {loadingScreen} from "../js/stores"
     import {redirectLogin, setDefaultHeaders} from '../includes/Auth.svelte'
     import AdminSidebar from "../includes/AdminSidebar.svelte";
+    import Navbar from "../includes/Navbar.svelte";
+    import IndexSidebar from "../includes/IndexSidebar.svelte";
 
     export let currentRoute;
     export let params = {};
@@ -57,38 +63,53 @@
 </script>
 
 <style>
-    body {
-        padding: 0 !important;
-        font-family: 'Poppins', sans-serif;
-    }
+  body {
+    padding: 10px !important;
+    font-family: 'Poppins', sans-serif !important;
+  }
 
-    .wrapper {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
+  .outer {
+    padding: 25px;
+    box-sizing: border-box; /* important */
+    height: 100%;
+    width: 100%;
+  }
 
-    .super-container {
-        display: flex;
-        width: 100%;
-        height: 100%;
-    }
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
 
-    .content-container {
-        display: flex;
-        width: 100%;
-        height: 100%;
-    }
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 10px;
+  }
 
-    .hide {
-        visibility: hidden;
-    }
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
 
-    @media (max-width: 950px) {
-        .wrapper {
-            flex-direction: column;
-        }
-    }
+    padding: 0 20px;
+    width: 100%;
+  }
+
+  .inner {
+    display: flex;
+    padding-bottom: 0px !important;
+  }
+
+  .content-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+
+    border-radius: 6px;
+  }
+
+  .hide {
+    visibility: hidden;
+  }
 </style>

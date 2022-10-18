@@ -61,3 +61,30 @@
         applyOverrides();
     });
 </script>
+
+<style>
+  :global(.listContainer){
+    padding: 5px;
+    background: #383844 !important;
+    box-shadow: 0 6px 6px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1) !important;
+  }
+  :global(.listContainer) :global(.item){
+    border-radius: 4px !important;
+    transition: .2s ease-in-out !important;
+  }
+  :global(.listContainer) :global(.item):hover{
+    cursor: pointer;
+  }
+  :global(.listContainer) :global(.item.hover){
+    background: rgba(255, 255, 255, .08) !important;
+  }
+
+  .multiselect-super{
+    --background: rgba(255, 255, 255, .08);
+    --border: none;
+    --placeholderColor: white;
+    --clearSelectFocusColor: white;
+
+    --padding: 5px;
+  }
+</style>

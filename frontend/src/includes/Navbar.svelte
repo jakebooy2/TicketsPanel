@@ -12,7 +12,17 @@
     <a href="https://docs.ticketsbot.net">Documentation</a>
     <a href="https://ticketsbot.net/premium">Premium</a>
   </div>
-  <div class="flex-right"></div>
+  <div class="flex-right">
+    <div class="user-info">
+      <img src="https://cdn.discordapp.com/avatars/601612991422791726/15c15d1a72de9cca7ac1609d67d168c3.jpg?size=64" />
+    </div>
+    <div class="user-name">
+      Jake S.
+    </div>
+    <div class="logout">
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </div>
+  </div>
 </div>
 
 <style>
@@ -60,10 +70,53 @@
       text-decoration: none;
       cursor: pointer;
       text-align: center;
-      font-size: 16px;
+      font-size: 15px;
       transition: .2s ease-in-out;
   }
   a:hover{
     color: var(--primary-color);
+  }
+
+  .user-info img{
+    width: 40px;
+    height: 40px;
+    margin-bottom: -5px !important;
+    border-radius: 100%;
+  }
+
+  .user-info:hover + .user-name,
+  .user-name:hover{
+    background:  rgba(255, 255, 255, .08);
+  }
+
+  .user-name{
+    border-radius: 25px;
+    background: rgba(255, 255, 255, .04);
+    padding: 10px 15px;
+    overflow: hidden;
+    min-width: 90px;
+    margin-left: 5px;
+    cursor: default;
+    transition: .2s ease-in-out;
+  }
+
+  .logout{
+    width: 44px;
+    height: 44px;
+    border-radius: 100%;
+    margin-left: 5px;
+    text-align: center;
+    background: rgba(255, 255, 255, .04);
+    cursor: pointer;
+    transition: .2s ease-in-out;
+  }
+
+  .logout:hover{
+    background: #dc3545 !important;
+  }
+
+  .logout i{
+    font-size: 20px;
+    line-height: 44px;
   }
 </style>
