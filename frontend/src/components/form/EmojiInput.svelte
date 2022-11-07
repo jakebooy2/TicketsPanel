@@ -43,15 +43,29 @@
         width: 100%;
     }
 
+    .form-input{
+      background-color: rgba(255, 255, 255, .08) !important;
+      transition: .2s ease-in-out;
+      width: 100%;
+    }
+
+    .form-input:hover, .form-input:focus, .form-input:active{
+      background-color: rgba(255, 255, 255, .12) !important;
+    }
+
     :global(.svelte-emoji-picker__trigger) {
         border-bottom-left-radius: 0;
         border-top-left-radius: 0;
-        background-color: #272727;
+        background-color: rgba(255, 255, 255, .08);
         border-color: #2e3136 !important;
         border-left: none;
         color: white;
         z-index: 2;
         height: 100%;
+        padding: 0 15px;
+        margin-left: 0px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
     }
 
     :global(.svelte-emoji-picker__trigger:active) {

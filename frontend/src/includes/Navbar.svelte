@@ -14,7 +14,7 @@
   </div>
   <div class="flex-right">
     <div class="user-info">
-      <img src="https://cdn.discordapp.com/avatars/601612991422791726/15c15d1a72de9cca7ac1609d67d168c3.jpg?size=64" />
+      <img src="https://cdn.discordapp.com/avatars/601612991422791726/54986dc668141b2fd3a5c8ae8ab68220.jpg?size=64" />
     </div>
     <div class="user-name">
       Jake S.

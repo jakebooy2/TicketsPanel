@@ -418,18 +418,22 @@
         display: flex;
         width: 100%;
         height: 100%;
-        --background: #2e3136;
-        --border: #2e3136;
+        --multiSelectPadding: 0 5px !important;
+        --background: rgba(255, 255, 255, .08);
+        --border: none;
         --borderRadius: 4px;
         --itemHoverBG: #121212;
         --listBackground: #2e3136;
         --itemColor: white;
-        --multiItemBG: #272727;
-        --multiItemActiveBG: #272727;
-        --multiClearFill: #272727;
-        --multiClearHoverFill: #272727;
+        --multiItemBG: rgba(255, 255, 255, .12);
+        --multiItemActiveBG: rgba(255, 255, 255, .18);
+        --multiClearBG: rgba(11, 11, 11, .3);
+        --multiClearHoverBG: var(--primary-color);
+        --multiClearFill: white;
+        --multiClearHoverFill: white;
         --inputColor: white;
         --inputFontSize: 16px;
+        --multiItemBorderRadius: 4px;
     }
 
     :global(.multiselect-super > .selectContainer) {

@@ -86,26 +86,29 @@
   <Card footer="{false}">
     <span slot="title">Your Multi-Panels</span>
     <div slot="body" class="card-body">
+      <div style="float: right;">
+        <button class="new-button" on:click={() => setActivePage('CREATE_MULTI_PANEL')}>New Multi Panel</button>
+      </div>
       <table style="margin-top: 10px">
         <thead>
         <tr>
           <th>Embed Title</th>
-          <th>Resend</th>
-          <th>Edit</th>
-          <th>Delete</th>
+          <th></th>
+          <th></th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
         {#each multiPanels as panel}
-          <tr>
+          <tr class="transcript">
             <td>{panel.title}</td>
-            <td>
+            <td class="button-row">
               <Button on:click={() => resendMultiPanel(panel.id)}>Resend</Button>
             </td>
-            <td>
+            <td class="button-row">
               <Button on:click={() => openMultiEditModal(panel.id)}>Edit</Button>
             </td>
-            <td>
+            <td class="button-row">
               <Button on:click={() => multiPanelToDelete = panel}>Delete</Button>
             </td>
           </tr>
@@ -114,6 +117,26 @@
       </table>
     </div>
   </Card>
+  {/if}
+
+  {#if activePage === 'CREATE_MULTI_PANEL'}
+    <div class="back-to-panels" on:click={() => setActivePage('PANELS')}>← back to panels</div>
+
+    <Card footer={false}>
+        <span slot="title">Create Multi-Panel</span>
+        <div slot="body" class="card-body">
+          <p>Note: The panels which you wish to combine into a multi-panel must already exist</p>
+
+          {#if !$loadingScreen}
+            <div style="margin-top: 10px">
+              <MultiPanelCreationForm {guildId} {channels} {panels} bind:data={multiPanelCreateData}/>
+              <div style="display: flex; justify-content: center; margin-top: 2%">
+                <Button icon="fas fa-paper-plane" fullWidth={true} on:click={createMultiPanel}>Submit</Button>
+              </div>
+            </div>
+          {/if}
+        </div>
+      </Card>
   {/if}
 </div>
 <!--  <div class="col-main">-->
@@ -287,7 +310,7 @@
     let multiPanelCreateData;
     let multiPanelEditData;
 
-    let activePage = "CREATE_PANEL";
+    let activePage = "PANELS";
 
     function setActivePage(page){
       activePage = page;

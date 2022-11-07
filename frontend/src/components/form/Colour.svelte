@@ -37,6 +37,7 @@
         display: none;
         box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
         margin-bottom: 15px;
+        z-index: 999;
     }
 
     .color-picker-box.open{
