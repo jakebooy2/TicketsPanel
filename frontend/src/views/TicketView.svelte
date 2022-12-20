@@ -1,19 +1,30 @@
 <div class="parent">
-  <div class="content">
-    <Card footer={false}>
+    {#if deleteActive}  
+        <CloseTicketModal {guildId}
+            on:close={() => deleteActive = false} on:confirm={(reason) => closeTicket(reason)}/>
+    {/if}
+
+    <div class="content">
+
+        <DiscordMessages {ticketId} {isPremium} {messages} bind:container on:send={sendMessage} on:closemodal={() => deleteActive = true} />
+
+        <br />
+        <br />
+
+    <!-- <Card footer={false}>
       <span slot="title">Support Teams</span>
       <div slot="body" class="body-wrapper">
         <div class="section">
-          <h2 class="section-title">Close Ticket</h2>
+          <h2 class="section-title"></h2>
 
           <form on:submit|preventDefault={closeTicket}>
-            <div class="row" style="max-height: 63px; align-items: flex-end"> <!-- hacky -->
+            <div class="row" style="max-height: 63px; align-items: flex-end"> <!-- hacky 
               <div class="col-3" style="margin-bottom: 0 !important;">
-                <Input label="Close Reason" placeholder="No reason specified" col1={true} bind:value={closeReason}/>
+                <!-- <Input label="Close Reason" placeholder="No reason specified" col1={true} bind:value={closeReason}/> 
               </div>
               <div class="col-1">
                 <div style="margin-left: 30px">
-                  <Button danger={true} icon="fas fa-lock">Close Ticket</Button>
+                  <Button danger={true} icon="fas fa-lock" on:click={() => deleteActive = true}>Close Ticket</Button>
                 </div>
               </div>
             </div>
@@ -21,12 +32,11 @@
         </div>
         <div class="section">
           <h2 class="section-title">View Ticket</h2>
-          <DiscordMessages {ticketId} {isPremium} {messages} bind:container on:send={sendMessage} />
         </div>
       </div>
-    </Card>
+    </Card> -->
   </div>
-</div>
+</div> 
 
 <script>
     import Card from "../components/Card.svelte";
@@ -38,15 +48,18 @@
     import Input from "../components/form/Input.svelte";
     import {navigateTo} from "svelte-router-spa";
     import DiscordMessages from "../components/DiscordMessages.svelte";
+    import CloseTicketModal from "../components/manage/CloseTicketModal.svelte";
 
     export let currentRoute;
     let guildId = currentRoute.namedParams.id;
     let ticketId = parseInt(currentRoute.namedParams.ticketid);
 
-    let closeReason = '';
+   // let closeReason = '';
     let messages = [];
     let isPremium = false;
     let container;
+
+    let deleteActive = false;
 
     let WS_URL = env.WS_URL || 'ws://172.26.50.75:3000';
 
@@ -54,9 +67,9 @@
         container.scrollTop = container.scrollHeight;
     }
 
-    async function closeTicket() {
+    async function closeTicket(reason) {
         let data = {
-            reason: closeReason,
+            reason: reason.detail,
         };
 
         const res = await axios.delete(`${API_URL}/api/${guildId}/tickets/${ticketId}`, {data: data});
@@ -111,6 +124,7 @@
             return;
         }
 
+        console.log(messages);
         messages = res.data.messages;
     }
 
@@ -148,8 +162,8 @@
     }
 
     .content {
-        display: flex;
-        justify-content: space-between;
+        /* display: flex; */
+        /* justify-content: space-between; */
         width: 96%;
         height: 100%;
         margin-top: 30px;

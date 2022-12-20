@@ -1,26 +1,24 @@
 <div class="content" transition:fade>
 
-    <Card footer={false} fill={false}>
-      <span slot="title">
-        Servers
-      </span>
-
-      <div slot="body" style="width: 100%">
-<!--        <div id="guild-container">-->
-          <InviteBadge/>
-
-          {#each guilds as guild}
-            <Guild guild={guild}/>
-          {/each}
-<!--        </div>-->
-
-        <div class="flex-container" id="refresh-container">
-          <Button icon="fas fa-sync" on:click={refreshGuilds}>
-            Refresh list
-          </Button>
+    <div class="refresh-wrapper">
+        <div class="refresh-button" title="Refresh Servers">
+            <i class="fas fa-sync" />
         </div>
-      </div>
-    </Card>
+        <div class="page-title-wrapper" style="width: 100%;">
+            <div class="page-title">
+                Select a server
+            </div>
+            <div class="title-dot">&nbsp;</div>
+        </div>
+    </div>
+
+    <div class="server-list">
+        <InviteBadge />
+
+        {#each guilds as guild}
+            <Guild guild={guild}/>
+        {/each}
+    </div>
 </div>
 
 <script>
@@ -67,12 +65,86 @@
 
 <style>
     .content {
-        display: flex;
+        /* display: flex; */
         height: 100%;
         width: 100%;
-        justify-content: center;
+        /* justify-content: center; */
     }
 
+    .refresh-wrapper{
+        display: flex;
+        width: 100%;
+    }
+
+    .refresh-button{
+        height: 35px;
+        width: 35px;
+        /* background-color: blue; */
+        border-radius: 8px;
+        text-align: center;
+        margin-top: 10px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, .06);
+        cursor: pointer;
+        transition: .2s ease-in-out;
+    }
+
+    .refresh-button:hover{
+        background-color: var(--primary-color);
+    }
+
+    .refresh-button i{
+        line-height: 35px;
+        font-size: 20px;
+    }
+
+    .server-wrapper{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .server-list :global(.server-box){
+        width: 100%;
+        background-color: var(--fg-color);
+
+        padding: 10px 20px;
+        box-shadow: 0 6px 6px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+        border-radius: 6px;
+        margin-bottom: 10px;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: .2s ease-in-out;
+    }
+
+    .server-list :global(.server-box):hover{
+        border-color: var(--primary-color);
+        box-shadow: 0 6px 6px rgba(135, 62, 245, .1), 0 0 0 1px rgba(135, 62, 245, .1);
+    }
+
+    .server-list :global(.server-box) :global(.server-info){
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .server-list :global(.server-box) :global(.server-info) :global(img){
+        width: 52px;
+        height: 52px;
+        box-shadow: 0 6px 6px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+        border-radius: 100%;
+    }
+
+    .server-list :global(.server-box) :global(.server-info) :global(.server-name){
+        font-size: 17px;
+    }
+
+    .page-title-wrapper .title-dot{
+        width: 175px;
+    }
+    
     .card-wrapper {
         display: block;
         width: 75%;

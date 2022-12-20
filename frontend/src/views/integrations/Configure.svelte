@@ -8,7 +8,7 @@
     import {setDefaultHeaders} from '../../includes/Auth.svelte'
     import {notifyError, notifySuccess, withLoadingScreen} from "../../js/util";
     import axios from "axios";
-    import {navigateTo} from "svelte-router-spa";
+    import {Navigate} from "svelte-router-spa";
     import {API_URL} from "../../js/constants";
 
     export let currentRoute;

@@ -105,7 +105,6 @@
     :global(.sidebar-link) {
         display: flex;
         align-items: center;
-        color: white !important;
         font-size: 18px;
         margin-left: 4%;
         text-decoration: none;

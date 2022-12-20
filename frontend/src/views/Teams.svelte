@@ -1,91 +1,103 @@
 <div class="parent">
-  <div class="content">
-    <Card footer={false}>
-      <span slot="title">Support Teams</span>
-      <div slot="body" class="body-wrapper">
-        <div class="section">
-          <h2 class="section-title">Create Team</h2>
-
-          <form on:submit|preventDefault={createTeam}>
-            <div class="row" style="max-height: 40px"> <!-- hacky -->
-              <Input placeholder="Team Name" col4={true} bind:value={createName}/>
-              <div style="margin-left: 30px">
-                <Button icon="fas fa-paper-plane">Submit</Button>
-              </div>
+    {#if activeTeam == null}
+        {#if createActive}
+            <CreateModal {guildId} title={"Create New Team"} label={"Team Name"}
+                on:close={() => createActive = false} on:confirm={(response) => createTeam(response)}/>
+        {/if}
+    <div class="page-title-row">
+        <div class="page-title-wrapper" style="width: 86%;">
+            <div class="page-title">
+                Staff Teams
             </div>
-          </form>
+            <div class="title-dot">&nbsp;</div>
         </div>
-        <div class="section">
-          <h2 class="section-title">Manage Teams</h2>
+        <Button icon="fas fa-plus" on:click={() => createActive = true}>
+            Create Team
+        </Button>
+    </div>
 
-          <div class="col-1" style="flex-direction: row">
-            <div class="col-4" style="margin-right: 12px">
-              <div class="multiselect-super">
-                <Select isSearchable={false} isClearable={false} optionIdentifier="id" items={teams}
-                        bind:selectedValue={activeTeam} getOptionLabel={labelMapper} getSelectionLabel={labelMapper}
-                        on:select={updateActiveTeam}/>
-              </div>
+    <br /><!-- needed to put it to the left? hacky -->
+    <br />
+        {#each teams as team}
+            <div class="form-list-item">
+                <div class="form-list-name">{team.name}</div>
+                <Button icon="fas fa-edit" on:click={() => activeTeam = {id: team.id, name: team.name}}>
+                    Manage Team
+                </Button>
             </div>
+        {/each}
+    {:else}
+    <div class="refresh-wrapper">
+        <div class="refresh-button" title="Back to Forms" on:click={() => activeTeam = null}>
+            <i class="fas fa-arrow-left" />
+        </div>
+        <div class="page-title-wrapper" style="width: 86%;">
+            <div class="page-title">
+                Managing {activeTeam.name}
+            </div>
+            <div class="title-dot">&nbsp;</div>
+        </div>
+        {#if activeTeam.id !== 'default'}
+        <Button icon="fas fa-trash" danger={true} on:click={() => deleteTeam(activeTeam.id)}>Delete</Button>
+        {/if}
+    </div>
+        <Card header={false} footer={false}>
+        <span slot="title">Staff Team Members</span>
+        <div slot="body" class="body-wrapper">
+            <div class="section">
+            <div class="manage">
+                <div class="col">
+                <h3>Manage Members</h3>
 
-            {#if activeTeam.id !== 'default'}
-              <div class="col-1">
-                <Button danger={true} type="button"
-                        on:click={() => deleteTeam(activeTeam.id)}>Delete {activeTeam.name}</Button>
-              </div>
-            {/if}
-          </div>
+                {#if members.length == 0}
+                    <div class="member-row">
+                        <center>
+                            No members are in this team yet!
+                        </center>
+                    </div>
+                {/if}
 
-          <div class="manage">
-            <div class="col">
-              <h3>Manage Members</h3>
-
-              <table class="nice">
-                <tbody>
                 {#each members as member}
-                  <tr>
-                    <td>{member.name}</td>
-                    <td style="display: flex; flex-direction: row-reverse">
-                      <Button type="button" danger={true} on:click={() => removeMember(activeTeam.id, member)}>Delete
-                      </Button>
-                    </td>
-                  </tr>
+                    <div class="member-row">
+                        <b>{member.name}</b>
+                        <Button danger>Delete</Button>
+                    </div>
                 {/each}
-                </tbody>
-              </table>
+
+                </div>
+
+                <div class="col">
+                <h3>Add Member</h3>
+                <div class="user-select">
+                    <div style="display: flex; flex: 1">
+                    <UserSelect {guildId} bind:value={selectedUser}/>
+                    </div>
+
+                    <div style="margin-left: 10px">
+                    <Button type="button" icon="fas fa-plus" disabled={selectedUser === undefined}
+                            on:click={addUser}>Add To Team
+                    </Button>
+                    </div>
+                </div>
+
+                <h3>Add Role</h3>
+                <div class="user-select">
+                    <div style="display: flex; flex: 1">
+                    <RoleSelect {guildId} {roles} bind:value={selectedRole}/>
+                    </div>
+
+                    <div style="margin-left: 10px">
+                    <Button type="button" icon="fas fa-plus" disabled={selectedRole === undefined}
+                            on:click={addRole}>Add To Team
+                    </Button>
+                    </div>
+                </div>
+                </div>
             </div>
-
-            <div class="col">
-              <h3>Add Member</h3>
-              <div class="user-select">
-                <div style="display: flex; flex: 1">
-                  <UserSelect {guildId} bind:value={selectedUser}/>
-                </div>
-
-                <div style="margin-left: 10px">
-                  <Button type="button" icon="fas fa-plus" disabled={selectedUser === undefined}
-                          on:click={addUser}>Add To Team
-                  </Button>
-                </div>
-              </div>
-
-              <h3>Add Role</h3>
-              <div class="user-select">
-                <div style="display: flex; flex: 1">
-                  <RoleSelect {guildId} {roles} bind:value={selectedRole}/>
-                </div>
-
-                <div style="margin-left: 10px">
-                  <Button type="button" icon="fas fa-plus" disabled={selectedRole === undefined}
-                          on:click={addRole}>Add To Team
-                  </Button>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-    </Card>
-  </div>
+        </Card>
+    {/if}
 </div>
 
 <script>
@@ -99,16 +111,20 @@
     import Select from 'svelte-select';
     import UserSelect from "../components/form/UserSelect.svelte";
     import RoleSelect from "../components/form/RoleSelect.svelte";
+    import CreateModal from "../components/manage/CreateModal.svelte";
 
     export let currentRoute;
     let guildId = currentRoute.namedParams.id;
 
     let defaultTeam = {id: 'default', name: 'Default'};
 
-    let createName;
+    let createActive = false;
+
+    let createName = "";
     let teams = [];
     let roles = [];
-    let activeTeam = defaultTeam;
+    let activeTeam = null;
+    $: activeTeam, updateActiveTeam();
     let members = [];
 
     let selectedUser;
@@ -179,9 +195,9 @@
         members = members.filter((member) => member.id !== entity.id);
     }
 
-    async function createTeam() {
+    async function createTeam(name) {
         let data = {
-            name: createName,
+            name: name.detail,
         };
 
         const res = await axios.post(`${API_URL}/api/${guildId}/team`, data);
@@ -193,6 +209,7 @@
         notifySuccess(`Team ${createName} has been created`);
         createName = '';
         teams = [...teams, res.data];
+        createActive = false;
     }
 
     async function deleteTeam(id) {
@@ -235,24 +252,24 @@
             loadRoles()
         ]);
 
-        await updateActiveTeam(); // Depends on teams
+        // await updateActiveTeam(); // Depends on teams
     });
 </script>
 
 <style>
     .parent {
-        display: flex;
-        justify-content: center;
         width: 100%;
         height: 100%;
     }
 
     .content {
-        display: flex;
-        justify-content: space-between;
-        width: 96%;
+        width: 100%;
         height: 100%;
         margin-top: 30px;
+    }
+
+    .page-title-row{
+        display: flex;
     }
 
     .body-wrapper {
@@ -278,6 +295,35 @@
         font-size: 36px;
         font-weight: bolder !important;
     }
+
+    
+    .refresh-wrapper{
+        display: flex;
+        width: 100%;
+    }
+
+    .refresh-button{
+        height: 35px;
+        width: 35px;
+        /* background-color: blue; */
+        border-radius: 8px;
+        text-align: center;
+        margin-top: 10px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, .06);
+        cursor: pointer;
+        transition: .2s ease-in-out;
+    }
+
+    .refresh-button:hover{
+        background-color: var(--primary-color);
+    }
+
+    .refresh-button i{
+        line-height: 35px;
+        font-size: 20px;
+    }
+
 
     h3 {
         font-size: 28px;
@@ -329,5 +375,44 @@
         .col {
             width: 100%;
         }
+    }
+
+    .form-input-row{
+        background-color: var(--fg-color);
+        box-shadow: var(--shadow);
+        padding: 10px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+    }
+
+    .form-list-item{
+        background-color: var(--fg-color);
+        box-shadow: var(--shadow);
+        padding: 10px 15px;
+        border-radius: 6px;
+        margin-bottom: 7px;
+        display: flex;
+        align-items: center;
+    }
+
+    .form-list-item .form-list-name{
+        font-weight: bold;
+        font-size: 18px;
+        width: 100%;
+    }
+
+    .member-row{
+        background-color: rgba(255, 255, 255, .04);
+        box-shadow: var(--shadow);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 5px 15px;
+        border-radius: 6px;
+        margin-bottom: 7px;
+    }
+
+    .member-row b{
+        width: 100%;
     }
 </style>

@@ -14,7 +14,7 @@
   </div>
   <div class="flex-right">
     <div class="user-info">
-      <img src="https://cdn.discordapp.com/avatars/601612991422791726/54986dc668141b2fd3a5c8ae8ab68220.jpg?size=64" />
+      <img src="https://cdn.discordapp.com/avatars/601612991422791726/3164a94600ddc0fca86def35e00756b4.webp?size=512" />
     </div>
     <div class="user-name">
       Jake S.
@@ -37,6 +37,7 @@
       border-radius: 6px;
 
       padding: 10px 20px 7px 20px;
+      box-shadow: var(--shadow);
   }
 
   .flex-center {
@@ -50,6 +51,7 @@
     justify-content: right;
     align-items: center;
     float: right;
+    margin-top: -3px;
   }
 
   .logo {
@@ -63,6 +65,7 @@
       align-items: center;
       gap: 20px;
       width: 87%;
+      margin-top: -3px;
   }
 
   a {
@@ -77,10 +80,14 @@
     color: var(--primary-color);
   }
 
+  .user-info{
+    display: flex;
+    align-items: center;
+  }
+
   .user-info img{
-    width: 40px;
-    height: 40px;
-    margin-bottom: -5px !important;
+    width: 44px;
+    height: 44px;
     border-radius: 100%;
   }
 
@@ -98,6 +105,7 @@
     margin-left: 5px;
     cursor: default;
     transition: .2s ease-in-out;
+    margin-top: 2px;
   }
 
   .logout{
@@ -117,6 +125,6 @@
 
   .logout i{
     font-size: 20px;
-    line-height: 44px;
+    line-height: 46px;
   }
 </style>

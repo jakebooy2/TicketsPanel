@@ -4,6 +4,7 @@
 	--bg-color: #1D1A28;
 	--fg-color: #272736;
     --primary-color: #995DF3;
+    --shadow: 0 6px 6px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
 }
 
 *, *::before, *::after {
@@ -75,34 +76,59 @@ code {
 	color: #f9a8d4;
 }
 
+.page-title-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: -10px;
+    margin-left: 15px;
+    margin-bottom: 25px;
+    float: left;
+    text-align: left;
+    align-items: left;
+}
+
+.page-title-wrapper .title-dot{
+    height: 5px;
+    background: linear-gradient(71.3deg, #873ef5 0%, #995DF3 100%);
+    border-radius: 5px; 
+    width: 100px;
+    margin-top: -15px;
+}
+
+.page-title{
+  text-align: left;
+  width: 100%;
+  font-size: 28px;
+  font-weight: bold;
+}
+
 .sidebar-link{
     font-size: 16px !important;
     padding: 5px 10px 5px 20px;
-    border-radius: 6px;
-    transition: .2s ease-in-out;
+    border-radius: 4px;
+    transition: .3s ease-in-out;
     text-shadow: none;
     margin-bottom: 5px;
     cursor: pointer;
 	margin-left: 0 !important;
 	position: relative;
+    color: rgba(255, 255, 255, .8);
 }
 
 .sidebar-link:not(.active):hover{
-    background-color: rgba(11, 11, 11, .1);
-}
-
-.sidebar-link:not(.active):hover .new-badge {
-	background: transparent;
+    color: white;
 }
 
 .sidebar-link.active{
-    background-color: rgba(11, 11, 11, .15);
+    background: linear-gradient(71.3deg, #873ef5 0%, #995DF3 100%);
+    color: white !important;
+    box-shadow: 0 6px 6px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
 }
 
 .sidebar-link .new-badge{
 	position: absolute;
 	right: 10px;
-	background: rgba(11, 11, 11, .1);
+	background: linear-gradient(33.3deg, #873ef5 0%, #995DF3 100%);
 	padding: 3px 10px;
 	border-radius: 4px;
 	text-transform: uppercase;
@@ -112,5 +138,5 @@ code {
 }
 
 .sidebar-link.active .new-badge {
-	background-color: transparent !important;
+	background: transparent !important;
 }

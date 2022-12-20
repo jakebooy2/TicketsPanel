@@ -1,11 +1,19 @@
 <div class="parent">
-  <div class="content">
+    <div class="refresh-wrapper">
+        <div class="page-title-wrapper" style="width: 86%;">
+            <div class="page-title">
+                Tickets
+            </div>
+            <div class="title-dot">&nbsp;</div>
+        </div>
+    </div>
+
     <Card footer={false}>
       <span slot="title">Open Tickets</span>
       <div slot="body" class="body-wrapper">
-        <table class="nice">
+        <table>
           <thead>
-          <tr>
+          <tr class="bg">
             <th>ID</th>
             <th>Panel</th>
             <th>User</th>
@@ -33,7 +41,6 @@
         </table>
       </div>
     </Card>
-  </div>
 </div>
 
 <script>
@@ -68,19 +75,13 @@
 
 <style>
     .parent {
-        display: flex;
-        justify-content: center;
         width: 100%;
         height: 100%;
-        margin-top: 30px;
     }
 
     .content {
-        display: flex;
-        justify-content: space-between;
-        width: 96%;
+        width: 100%;
         height: 100%;
-        margin-top: 30px;
     }
 
     .body-wrapper {
@@ -88,5 +89,97 @@
         flex-direction: column;
         width: 100%;
         height: 100%;
+    }
+
+    th{
+      text-align: left !important;
+      padding: 5px;
+    }
+
+    .form-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    td, th {
+    border-radius: 4px;
+  }
+
+    tr.bg{
+      background: rgba(255, 255, 255, .04);
+      border-radius: 4px !important;
+      padding: 5px 15px;
+      border: none !important;
+    }
+
+    tr.bg td{
+      border-radius: 4px;
+      padding: 5px 10px;
+    }
+
+    .button-row{
+      width: 1%;
+      white-space: nowrap;
+      background: #dc3545 !important;
+      padding: 0 !important;
+    }
+
+    :global(.link){
+        text-decoration: none;
+    }
+
+    .button-row td{
+      padding: 0;
+    }
+
+    .delete-button{
+      padding: 7px 15px !important;
+      height: 37px;
+      margin-top: 5px;
+      border: none;
+      background-color: #dc3545 !important;
+      border-color: #dc3545 !important;
+      border-radius: 4px;
+      color: white;
+      transition: .2s ease-in-out !important;
+      cursor: pointer !important;
+      float: right;
+    }
+
+    .delete-button:hover:enabled, .delete-button:active {
+      background-color: rgba(11, 11, 11, .2) !important;
+      border-color: rgba(11, 11, 11, .2) !important;
+    }
+
+    .user-row{        
+        display: flex;
+        gap: 10px;
+        margin-top: 15px; 
+        
+        background-color: var(--fg-color);
+        border-radius: 6px;
+        padding: 10px 20px;
+        box-shadow: 0 6px 6px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+    }
+
+    .user-row .user-info{
+        width: 100%;
+    }
+
+    .user-row .user-info .user-name{
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .user-row .user-info span{
+        font-weight: normal;
+        color: rgba(255, 255, 255, .6);
+    }
+
+    .user-row .user-id{
+        color: rgba(255, 255, 255, .5);
+        margin-top: -2px;
+        font-size: 14px;
     }
 </style>

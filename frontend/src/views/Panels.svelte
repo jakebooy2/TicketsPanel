@@ -26,6 +26,12 @@
 
 
 <div class="wrapper">
+    <div class="page-title-wrapper" style="width: 100%;">
+        <div class="page-title">
+            Reaction Panels
+        </div>
+        <div class="title-dot">&nbsp;</div>
+    </div>
   {#if activePage === 'PANELS'}
   <Card footer="{false}">
     <span slot="title">Your Reaction Panels</span>
@@ -245,7 +251,7 @@
     border: none;
     border-radius: 6px;
     height: 38px;
-    background: #995DF3;
+    background: #873ef5;
     cursor: pointer;
     transition: .2s ease-in-out;
     color: white;
@@ -265,7 +271,11 @@
     display: inline-block;
   }
   .back-to-panels:hover{
-    color: #995DF3;
+    color: #873ef5;
+  }
+
+  .page-title-wrapper .title-dot{
+    width: 200px;
   }
 </style>
 

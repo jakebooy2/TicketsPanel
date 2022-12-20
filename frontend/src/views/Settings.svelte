@@ -1,8 +1,12 @@
 <div class="content">
   <div class="main-col">
-    <div class="card">
-      <SettingsCard {guildId}/>
+    <div class="page-title-wrapper" style="width: 100%;">
+        <div class="page-title">
+            Settings
+        </div>
+        <div class="title-dot">&nbsp;</div>
     </div>
+    <SettingsCard {guildId}/>
   </div>
 </div>
 
@@ -10,7 +14,7 @@
     import SettingsCard from "../components/manage/SettingsCard.svelte";
 
     export let currentRoute;
-    let guildId = currentRoute.namedParams.id
+    let guildId = currentRoute.namedParams.id;
 </script>
 
 <style>

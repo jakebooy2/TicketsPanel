@@ -1,6 +1,9 @@
 <div class="wrapper">
-    <div class="page-title">
-        Whitelabel
+    <div class="page-title-wrapper">
+        <div class="page-title">
+            Whitelabel
+        </div>
+        <div class="title-dot">&nbsp;</div>
     </div>
 
     <Card footer="{false}" fill="{false}">
@@ -123,17 +126,34 @@
         flex-direction: column;
         height: 100%;
         width: 100%;
-        align-items: center;
+        /* align-items: center; */
         padding: 0 25px 10px 25px;
     }
 
-    .page-title{
+    .page-title-wrapper{
+        display: flex;
+        flex-direction: column;
+        gap: -10px;
+        margin-left: 15px;
+        margin-bottom: 15px;
         float: left;
         text-align: left;
-        width: 100%;
-        font-size: 28px;
-        font-weight: bold;
-        margin-bottom: 15px;
+        align-items: left;
+    }
+
+    .page-title-wrapper .title-dot{
+        height: 5px;
+        background: linear-gradient(71.3deg, #873ef5 0%, #995DF3 100%);
+        border-radius: 5px; 
+        width: 125px;
+        margin-top: -15px;
+    }
+
+    .page-title{
+      text-align: left;
+      width: 100%;
+      font-size: 28px;
+      font-weight: bold;
     }
 
     .content {

@@ -131,6 +131,35 @@
         width: 60%;
     }
 
+    
+    .refresh-wrapper{
+        display: flex;
+        width: 100%;
+    }
+
+    .refresh-button{
+        height: 35px;
+        width: 35px;
+        /* background-color: blue; */
+        border-radius: 8px;
+        text-align: center;
+        margin-top: 10px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, .06);
+        cursor: pointer;
+        transition: .2s ease-in-out;
+    }
+
+    .refresh-button:hover{
+        background-color: var(--primary-color);
+    }
+
+    .refresh-button i{
+        line-height: 35px;
+        font-size: 20px;
+    }
+
+
     .body-wrapper {
         display: flex;
         flex-direction: column;

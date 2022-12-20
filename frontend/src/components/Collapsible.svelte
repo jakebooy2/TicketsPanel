@@ -74,9 +74,9 @@
 
 <style>
     .collapsible{
-        background-color: rgba(255, 255, 255, .04);
+        background-color: var(--fg-color);
         padding: 10px 15px;
-        border-radius: 4px;
+        border-radius: 6px;
         position: relative;
     }
 

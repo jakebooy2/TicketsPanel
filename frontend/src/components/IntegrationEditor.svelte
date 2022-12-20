@@ -16,6 +16,16 @@
 {/if}
 
 <div class="parent">
+    <div class="refresh-wrapper">
+        <Navigate to="/manage/{guildId}/integrations" styles="refresh-button">
+            <i class="fas fa-arrow-left" /></Navigate>
+        <div class="page-title-wrapper" style="width: 86%;">
+            <div class="page-title">
+                Configure Integration
+            </div>
+            <div class="title-dot">&nbsp;</div>
+        </div>
+    </div>
   <div class="content">
     {#if editingMetadata || editMode}
       <div class="row outer-row" bind:this={metadataRow} transition:fade>
@@ -261,6 +271,7 @@
     import Textarea from "./form/Textarea.svelte";
     import {createEventDispatcher, onMount} from "svelte";
     import ConfirmationModal from "./ConfirmationModal.svelte";
+    import { Navigate } from 'svelte-router-spa';
 
     const dispatch = createEventDispatcher();
 
@@ -419,15 +430,11 @@
 
 <style>
     .parent {
-        display: flex;
-        justify-content: center;
         width: 100%;
         height: 100%;
     }
 
     .content {
-        display: flex;
-        flex-direction: column;
         align-items: flex-start;
         row-gap: 5vh;
         width: 96%;
@@ -515,4 +522,33 @@
             width: 100%;
         }
     }
+
+    .refresh-wrapper{
+        display: flex;
+        width: 100%;
+    }
+
+    :global(.refresh-button){
+        height: 35px;
+        width: 35px;
+        /* background-color: blue; */
+        border-radius: 8px;
+        text-align: center;
+        margin-top: 10px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, .06);
+        cursor: pointer;
+        transition: .2s ease-in-out;
+    }
+
+    :global(.refresh-button):hover{
+        background-color: var(--primary-color);
+    }
+
+    :global(.refresh-button) i{
+        line-height: 35px;
+        font-size: 20px;
+        color: white;
+    }
+
 </style>

@@ -1,4 +1,11 @@
 <div class="parent">
+    <div class="page-title-wrapper" style="width: 100%;">
+        <div class="page-title">
+            Integrations
+        </div>
+        <div class="title-dot">&nbsp;</div>
+    </div>
+    
   <div class="content">
     <div class="container">
       <div class="spread">
@@ -162,17 +169,21 @@
 
 <style>
     .parent {
-        display: flex;
-        justify-content: center;
+        /* display: flex;
+        justify-content: center; */
         width: 100%;
         height: 100%;
+    }
+
+    .page-title-wrapper .title-dot{
+        width: 160px;
     }
 
     .content {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        width: 96%;
+        width: 100%;
         height: 100%;
         margin-top: 30px;
         padding-bottom: 5vh;
@@ -194,10 +205,6 @@
 
     .integration {
         flex: 0 0 23.5%;
-    }
-
-    .my-integrations {
-        margin-top: 2vh;
     }
 
     .title {

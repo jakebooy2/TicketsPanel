@@ -5,37 +5,27 @@
 {/if}
 
 <div class="parent">
-  <div class="content">
-    <div class="main-col">
-      <Card footer footerRight>
-        <span slot="title">Tags</span>
-        <div slot="body" class="body-wrapper">
-          <table class="nice">
-            <thead>
-            <tr>
-              <th>Tag</th>
-              <th style="text-align: right">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {#each Object.entries(tags) as [id, tag]}
-              <tr>
-                <td>{id}</td>
-                <td class="actions">
-                  <Button type="button" on:click={() => openEditModal(id)}>Edit</Button>
-                  <Button type="button" danger={true} on:click={() => deleteTag(id)}>Delete</Button>
-                </td>
-              </tr>
-            {/each}
-            </tbody>
-          </table>
+    <div class="page-title-row">
+        <div class="page-title-wrapper" style="width: 86%;">
+            <div class="page-title">
+                Tags
+            </div>
+            <div class="title-dot">&nbsp;</div>
         </div>
-        <div slot="footer">
-          <Button icon="fas fa-plus" on:click={openCreateModal}>Create Tag</Button>
-        </div>
-      </Card>
+        <Button icon="fas fa-plus" gap on:click={openCreateModal}>
+            Create Tag
+        </Button>
     </div>
-  </div>
+
+    {#each Object.entries(tags) as [id, tag]}
+        <div class="tag-item">
+            <div class="tag-name">
+                {id}
+            </div>
+            <Button type="button" on:click={() => openEditModal(id)} gap>Edit</Button>
+            <Button type="button" danger={true} on:click={() => deleteTag(id)}>Delete</Button>
+        </div>
+    {/each}
 </div>
 
 <script>
@@ -174,16 +164,18 @@
 
 <style>
     .parent {
-        display: flex;
-        justify-content: center;
         width: 100%;
         height: 100%;
+    }
+
+    .title-dot{
+        width: 50px;
     }
 
     .content {
         display: flex;
         justify-content: space-between;
-        width: 96%;
+        width: 100%;
         height: 100%;
         margin-top: 30px;
     }
@@ -224,5 +216,24 @@
             width: 100%;
             margin-top: 4%;
         }
+    }
+
+    .tag-item{
+        padding: 10px 15px;
+        border-radius: 6px;
+        background-color: var(--fg-color);
+        box-shadow: var(--shadow);
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .tag-item .tag-name{
+        font-size: 18px;
+        width: 100%;
+    }
+
+    .page-title-row{
+        display: flex;
     }
 </style>

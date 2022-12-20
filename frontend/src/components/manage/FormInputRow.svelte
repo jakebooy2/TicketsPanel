@@ -1,46 +1,52 @@
 <form on:submit|preventDefault={forwardCreate} class="input-form">
-  <div class="row">
-    <div class="sub-row" style="flex: 1">
-      <Input col3={true} label="Label" bind:value={data.label} placeholder="Name of the field" />
-    </div>
-    <div class="sub-row buttons-row">
-      {#if windowWidth > 950}
-        {#if withDirectionButtons}
-          <form on:submit|preventDefault={() => forwardMove("down")} class="button-form">
-            <Button disabled={index >= formLength - 1}>
-              <i class="fas fa-chevron-down"></i>
-            </Button>
-          </form>
-          <form on:submit|preventDefault={() => forwardMove("up")} class="button-form">
-            <Button disabled={index === 0}>
-              <i class="fas fa-chevron-up"></i>
-            </Button>
-          </form>
-        {/if}
-        {#if withDeleteButton}
-          <form on:submit|preventDefault={forwardDelete} class="button-form">
-            <Button icon="fas fa-trash" danger={true}>Delete</Button>
-          </form>
-        {/if}
-      {/if}
-    </div>
-  </div>
-  <div class="row settings-row">
-    <Textarea col3_4={true} label="Placeholder" bind:value={data.placeholder} minHeight="120px"
-           placeholder="Placeholder text for the field, just like this text" />
-    <div class="col-4">
-      <div class="row">
-        <Dropdown col1={true} label="Style" bind:value={data.style}>
-          <option value=1 selected>Short</option>
-          <option value=2>Paragraph</option>
-        </Dropdown>
-      </div>
-      <div class="row">
-        <Checkbox label="Required" bind:value={data.required}/>
-      </div>
-    </div>
-  </div>
+    <div class="input-row-container">
+        <div class="input-row">
+            <Input  label="Label" bind:value={data.label} placeholder="Name of the field" />
+            <Textarea  label="Placeholder" bind:value={data.placeholder} minHeight="90px"
+                    placeholder="Placeholder text for the field, just like this text" />
+        </div>
+        <div class="sidebar-row">
+            {#if windowWidth > 950}
+                {#if withDirectionButtons}
+                    <div class="form-movement-container">
+                        {#if withDeleteButton}
+                            <form on:submit|preventDefault={forwardDelete} class="button-form">
+                                <Button icon="fas fa-trash" danger={true}>Delete</Button>
+                            </form>
+                        {/if}
+                        <div class="form-movement">
+                            <form on:submit|preventDefault={() => forwardMove("down")} class="button-form">
+                                <Button disabled={index >= formLength - 1}>
+                                <i class="fas fa-chevron-down"></i>
+                                </Button>
+                            </form>
+                            <form on:submit|preventDefault={() => forwardMove("up")} class="button-form">
+                                <Button disabled={index === 0}>
+                                <i class="fas fa-chevron-up"></i>
+                                </Button>
+                            </form>
+                        </div>
+                    </div>
+                {/if}
+                {#if withDeleteButton && !withDirectionButtons}
+                <form on:submit|preventDefault={forwardDelete} class="button-form">
+                    <Button icon="fas fa-trash" danger={true}>Delete</Button>
+                </form>
+                {/if}
+            {/if}
 
+            <div class="row">
+                <Dropdown col1={true} label="Style" bind:value={data.style}>
+                  <option value=1 selected>Short</option>
+                  <option value=2>Paragraph</option>
+                </Dropdown>
+              </div>
+              <div class="row toggle-box-edit" style="width: 100%;">
+                <ToggleBox label="Required" bind:value={data.required}/>
+              </div>
+        </div>
+    </div>
+    
   {#if windowWidth <= 950}
     <div class="col-1">
       {#if withDirectionButtons}
@@ -72,12 +78,6 @@
       </div>
     </div>
   {/if}
-
-  {#if withCreateButton && false}
-    <div class="row" style="justify-content: center; margin-top: 10px">
-      <Button type="submit" icon="fas fa-plus" {disabled}>Add Input</Button>
-    </div>
-  {/if}
 </form>
 
 <svelte:window bind:innerWidth={windowWidth} />
@@ -91,6 +91,7 @@
   import Button from "../Button.svelte";
   import Textarea from "../form/Textarea.svelte";
   import Checkbox from "../form/Checkbox.svelte";
+  import ToggleBox from '../form/ToggleBox.svelte';
 
   export let withCreateButton = false;
   export let withDeleteButton = false;
@@ -122,8 +123,49 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-        border-top: 1px solid rgba(0, 0, 0, .25);
-        padding-top: 10px;
+    }
+
+    .input-row-container{
+        display: flex;
+        gap: 20px;
+    }
+
+    .input-row{
+        display: flex;
+        gap: 5px;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .sidebar-row{
+        display: flex;
+        gap: 5px;
+        flex-direction: column;
+        width: 25%;
+    }
+
+    .form-movement-container{
+        display: flex;
+        gap: 10px;
+        margin-top: 22px;
+    }
+
+    .toggle-box-edit :global(.toggle-box){
+        width: 100%;
+        height: 43px;
+    }
+
+    .toggle-box-edit :global(.toggle-box) :global(.form-label){
+        width: 100%;
+    }
+
+    .form-movement{
+        display: flex;
+        gap: 2px;
+    }
+
+    .form-movement :global(button){
+        width: 50px;
     }
 
     .row {
@@ -159,4 +201,10 @@
             width: 100%;
         }
     }
+
+    :global(.form-input){
+        width: 100% !important;
+    }
+
+
 </style>

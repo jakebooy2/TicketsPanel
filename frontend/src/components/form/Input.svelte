@@ -1,4 +1,4 @@
-<div class:col-1={col1} class:col-2={col2} class:col-3={col3} class:col-4={col4}>
+<div class:col-1={col1} class:col-2={col2} class:col-3={col3} class:col-4={col4} style="width: 100%;">
   {#if label !== undefined}
     <div class="label-wrapper" class:no-margin={tooltipText !== undefined}>
       <label for="input" class="form-label" style="margin-bottom: 0">{label}</label>

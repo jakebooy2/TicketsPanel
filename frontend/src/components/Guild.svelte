@@ -1,17 +1,14 @@
-<div class="guild-badge" on:click={goto(guild.id)}>
-  <div class="guild-icon-bg">
-    {#if guild.icon === undefined || guild.icon === ""}
-      <i class="fas fa-question guild-icon-fa"></i>
-    {:else}
-      <img class="guild-icon" src="{getIconUrl()}" alt="Guild Icon"/>
-    {/if}
-  </div>
-
-  <div>
-    <span class="guild-name">
-      {guild.name}
-    </span>
-  </div>
+<div class="server-box" on:click={goto(guild.id)}>
+    <div class="server-info">
+        {#if guild.icon === undefined || guild.icon === ""}
+            <div class="invite-icon">
+                <i class="fas fa-question"></i>
+            </div>
+        {:else}
+            <img class="guild-icon" src="{getIconUrl()}" alt="Guild Icon"/>
+        {/if}
+        <div class="server-name">{guild.name}</div>
+    </div>
 </div>
 
 <script>
@@ -56,55 +53,3 @@
         return res.data.permission_level;
     }
 </script>
-
-<style>
-    :global(.guild-badge) {
-        display: flex;
-        align-items: center;
-        background-color: rgba(255, 255, 255, .06);
-        border-radius: 6px;
-        cursor: pointer;
-        padding: 10px 0;
-        margin-bottom: 5px;
-    }
-
-    @media (max-width: 950px) {
-        :global(.guild-badge) {
-            width: 100%;
-        }
-    }
-
-    :global(.guild-icon-bg) {
-        height: 52px;
-        width: 52px;
-        background-color: #272727;
-        border-radius: 6px;
-        margin-left: 10px;
-        transition: .2s ease-in-out;
-    }
-
-    :global(.guild-icon) {
-        height: 52px;
-        width: 52px;
-        border-radius: 50%;
-    }
-
-    :global(.guild-icon-fa) {
-        border-radius: 50%;
-        color: white;
-        font-size: 32px !important;
-        width: 52px;
-        height: 52px;
-        text-align: center;
-        margin-top: 10px;
-    }
-
-    :global(.guild-name) {
-        color: white !important;
-        padding-left: 10px;
-    }
-
-    :global(.guild-badge):hover :global(.guild-icon-bg){
-      background: #995DF3;
-    }
-</style>

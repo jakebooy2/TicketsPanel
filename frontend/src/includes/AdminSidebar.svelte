@@ -33,7 +33,8 @@
         float: left;
         background-size: cover;
         overflow-x: hidden !important;
-        min-width: 250px;
+        min-width: 300px;
+        
     }
 
     .sidebar-container {

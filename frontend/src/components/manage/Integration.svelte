@@ -7,7 +7,7 @@
   <div class="details">
     <div class="title-row">
       <span class="title">{name}</span>
-      {#if builtIn}
+      {#if builtIn} 
         <Badge colour="#0c8f43">Built-In</Badge>
       {/if}
       {#if added}
@@ -48,21 +48,20 @@
     {#if !hideLinks}
       <div class="links">
         {#if builtIn}
-          <a href="{viewLink}" target="_blank" class="link-blue">View</a>
+          <a href="{viewLink}" target="_blank" class="integration-link single">View</a>
         {:else if added}
-          <Navigate to="/manage/{guildId}/integrations/view/{integrationId}" styles="link-blue">View</Navigate>
-          <Navigate to="/manage/{guildId}/integrations/manage/{integrationId}" styles="link-blue">Configure</Navigate>
-          <a href="#" class="link-blue" on:click={() => dispatch("remove", {})}>Remove</a>
+          <Navigate to="/manage/{guildId}/integrations/view/{integrationId}" styles="integration-link">View</Navigate>
+          <Navigate to="/manage/{guildId}/integrations/manage/{integrationId}" styles="integration-link">Configure</Navigate>
+          <a href="#" class="integration-link" on:click={() => dispatch("remove", {})}>Remove</a>
         {:else}
           {#if owned}
-            <Navigate to="/manage/{guildId}/integrations/view/{integrationId}" styles="link-blue">Preview</Navigate>
-            <Navigate to="/manage/{guildId}/integrations/configure/{integrationId}" styles="link-blue">Configure
-            </Navigate>
-          {:else}
-            <Navigate to="/manage/{guildId}/integrations/view/{integrationId}" styles="link-blue">View</Navigate>
+            <Navigate to="/manage/{guildId}/integrations/view/{integrationId}" styles="integration-link">Preview</Navigate>
+            <Navigate to="/manage/{guildId}/integrations/configure/{integrationId}" styles="integration-link">Configure</Navigate>
+            <Navigate to="/manage/{guildId}/integrations/activate/{integrationId}" styles="integration-link">Add to server</Navigate>
+        {:else}
+            <Navigate to="/manage/{guildId}/integrations/view/{integrationId}" styles="integration-link double">View</Navigate>
+            <Navigate to="/manage/{guildId}/integrations/activate/{integrationId}" styles="integration-link double">Add to server</Navigate>
           {/if}
-          <Navigate to="/manage/{guildId}/integrations/activate/{integrationId}" styles="link-blue">Add to server
-          </Navigate>
         {/if}
       </div>
     {/if}
@@ -114,8 +113,8 @@
         flex-direction: column;
         border-radius: 10px;
 
-        background-color: #272727 !important;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        background-color: var(--fg-color) !important;
+        box-shadow: var(--shadow);
         transition: all .3s ease-in-out;
 
         height: 100%;
@@ -168,6 +167,16 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-around;
+        gap: 4px;
+    }
+
+    .author-avatar{
+        margin-top: 5px;
+    }
+
+    .link{
+        color: white;
+        margin-top: -5px;
     }
 
     .author {
@@ -175,10 +184,31 @@
         flex-direction: row;
         align-items: center;
         gap: 4px;
+        color: white;
     }
 
     .author-avatar {
         height: 24px;
         border-radius: 50%;
+    }
+
+    :global(.integration-link){
+        background-color: var(--primary-color);
+        margin-top: 10px;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        border-radius: 6px;
+        padding: 5px 10px;
+    }
+
+    :global(.single){
+        width: 100%;
+        display: block;
+    }
+
+    :global(.double){
+        width: 50%;
+        display: block;
     }
 </style>

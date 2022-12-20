@@ -1,4 +1,17 @@
 <div class="parent">
+    <div class="refresh-wrapper">
+        <Navigate to="/manage/{guildId}/integrations" styles="refresh-button">
+            <i class="fas fa-arrow-left" /></Navigate>
+        <!-- <div class="refresh-button" title="Back to Integrations">
+            <i class="fas fa-arrow-left" />
+        </div> -->
+        <div class="page-title-wrapper" style="width: 86%;">
+            <div class="page-title">
+                {integration.name}
+            </div>
+            <div class="title-dot">&nbsp;</div>
+        </div>
+    </div>
   <div class="content">
     <div class="col-left">
       <Card footer footerRight>
@@ -122,8 +135,6 @@
 
 <style>
     .parent {
-        display: flex;
-        justify-content: center;
         width: 100%;
         height: 100%;
     }
@@ -139,6 +150,43 @@
 
         gap: 2%;
     }
+
+    :global(button){
+        width: 250px;
+    }
+    
+    .refresh-wrapper{
+        display: flex;
+        width: 100%;
+    }
+
+    :global(.refresh-button){
+        height: 35px;
+        width: 35px;
+        /* background-color: blue; */
+        border-radius: 8px;
+        text-align: center;
+        margin-top: 10px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, .06);
+        cursor: pointer;
+        transition: .2s ease-in-out;
+    }
+
+    :global(.refresh-button):hover{
+        background-color: var(--primary-color);
+    }
+
+    :global(.refresh-button) i{
+        line-height: 35px;
+        font-size: 20px;
+        color: white;
+    }
+
+    a{
+        color: var(--primary-color);
+    }
+
 
     .col-left {
         width: 60%;
@@ -175,5 +223,14 @@
         .col-left, .col-right {
             width: 100%;
         }
+    }
+
+    .form-input{
+        background-color: rgba(255, 255, 255, .08) !important;
+        transition: .2s ease-in-out;
+    }
+
+    .form-input:hover, .form-input:focus, .form-input:active{
+        background-color: rgba(255, 255, 255, .12) !important;
     }
 </style>

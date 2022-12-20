@@ -1,4 +1,10 @@
 <div class="content">
+    <div class="page-title-wrapper" style="width: 100%;">
+        <div class="page-title">
+            Transcripts
+        </div>
+        <div class="title-dot">&nbsp;</div>
+    </div>
   <div class="col">
     <Card footer="{false}" ref="filter-card">
       <span slot="title">
@@ -230,21 +236,23 @@
             loadPanels(),
             loadData({})
         ])
-    })
+    });
 </script>
 
 <style>
     .content {
-        display: flex;
-        justify-content: center;
         height: 100%;
         width: 100%;
+    }
+
+    .page-title-wrapper .title-dot{
+        width: 150px;
     }
 
     .col {
         display: flex;
         flex-direction: column;
-        width: 95%;
+        width: 100%;
         height: 100%;
         margin-top: 30px;
     }
@@ -326,7 +334,7 @@
     }
 
     .nav > i:not(.hidden):hover{
-        background: #995DF3;
+        background: #873ef5;
     }
 
     .nav > i.left{

@@ -1,105 +1,93 @@
 <div class="parent">
-  <div class="content">
-    <Card footer footerRight>
-      <span slot="title">Forms</span>
-      <div slot="body" class="body-wrapper">
-        <div class="section">
-          <h2 class="section-title">Create New Form</h2>
+    {#if createActive}  
+        <CreateModal {guildId} title={"Create New Form"} label={"Form Name"}
+            on:close={() => createActive = false} on:confirm={(response) => createForm(response)}/>
+    {/if}
 
-          <form on:submit|preventDefault={createForm}>
-            <div class="row" id="creation-row">
-              <Input placeholder="Form Title" col3={true} bind:value={newTitle}/>
-              <div id="create-button-wrapper">
-                <Button icon="fas fa-paper-plane" fullWidth={windowWidth <= 950}>Create</Button>
-              </div>
+    {#if activeFormId !== null}
+        <div class="refresh-wrapper">
+            <div class="refresh-button" title="Back to Forms" on:click={() => activeFormId = null}>
+                <i class="fas fa-arrow-left" />
             </div>
-          </form>
-        </div>
-        <div class="section">
-          <h2 class="section-title">Manage Forms</h2>
-
-          {#if editingTitle && activeFormId !== null}
-            <div class="row form-name-edit-wrapper">
-              <Input col4 label="Form Title" placeholder="Form Title" bind:value={renamedTitle}/>
-              <div class="form-name-save-wrapper">
-                <Button icon="fas fa-floppy-disk" fullWidth={windowWidth <= 950} on:click={updateTitle}>Save</Button>
-              </div>
-            </div>
-          {:else}
-            <div class="row form-select-row">
-              <div class="multiselect-super">
-                <Dropdown col1 bind:value={activeFormId}>
-                  <option value={null}>Select a form...</option>
-                  {#each forms as form}
-                    <option value="{form.form_id}">{form.title}</option>
-                  {/each}
-                </Dropdown>
-              </div>
-
-              {#if activeFormId !== null}
-                <Button on:click={() => editingTitle = true}>Rename Form</Button>
-                <Button danger type="button"
-                        on:click={() => deleteForm(activeFormId)}>Delete {activeFormTitle}</Button>
-              {/if}
-            </div>
-          {/if}
-
-          <div class="manage">
-            {#if activeFormId !== null}
-              {#each forms.find(form => form.form_id === activeFormId).inputs as input, i (input)}
-                <div animate:flip="{{duration: 500}}">
-                  <FormInputRow data={input} formId={activeFormId}
-                                withSaveButton={true} withDeleteButton={true} withDirectionButtons={true}
-                                index={i} {formLength}
-                                on:delete={() => deleteInput(activeFormId, input)}
-                                on:move={(e) => changePosition(activeFormId, input, e.detail.direction)}/>
+            <div class="page-title-wrapper" style="width: 86%;">
+                <div class="page-title">
+                    Editing {activeFormTitle}
                 </div>
-              {/each}
+                <div class="title-dot">&nbsp;</div>
+            </div>
+
+            {#if editingTitle}
+                <RenameFormModal {guildId} title={activeFormTitle} form_id={activeFormId}
+                    on:close={() => editingTitle = false} on:confirm={(name) => createForm(name)}/>
             {/if}
 
-            {#if activeFormId !== null}
-              <div class="row" style="justify-content: center; align-items: center; gap: 10px; margin-top: 10px">
-                <hr class="fill">
-                <div class="row add-input-container" class:add-input-disabled={formLength >= 5}>
-                  <i class="fas fa-plus"></i>
-                  <a on:click={addInput}>Add Input</a>
-                </div>
-                <hr class="fill">
-              </div>
-            {/if}
-          </div>
-        </div>
-      </div>
+            <Button gap icon="fas fa-save" disabled={formLength === 0} on:click={saveInputs}>Save</Button>
 
-      <div slot="footer">
-        <Button type="submit" icon="fas fa-floppy-disk" disabled={formLength === 0} on:click={saveInputs}>
-          Save
-        </Button>
-      </div>
-    </Card>
-  </div>
+            <Button icon="fas fa-edit" on:click={() => editingTitle = true}>Rename</Button>
+
+            <Button icon="fas fa-trash" danger={true} on:click={() => deleteForm(activeFormId)}>Delete</Button>
+        </div>
+
+        {#each forms.find(form => form.form_id === activeFormId).inputs as input, i (input)}
+            <div class="form-input-row" animate:flip="{{duration: 500}}">
+                <FormInputRow data={input} formId={activeFormId}
+                            withSaveButton={true} withDeleteButton={true} withDirectionButtons={true}
+                            index={i} {formLength}
+                            on:delete={() => deleteInput(activeFormId, input)}
+                            on:move={(e) => changePosition(activeFormId, input, e.detail.direction)}/>
+            </div>
+        {/each}
+
+        <div class="new-input" on:click={addInput}>
+            <i class="fas fa-plus"></i> Add Input
+        </div>
+
+    {:else}
+        <div class="page-title-row">
+            <div class="page-title-wrapper" style="width: 86%;">
+                <div class="page-title">
+                    Forms
+                </div>
+                <div class="title-dot">&nbsp;</div>
+            </div>
+            {#if activeFormId == null}
+                <Button icon="fas fa-plus" on:click={() => createActive = true}>
+                    Create Form
+                </Button>
+            {/if}
+        </div>
+
+        {#each forms as form}
+            <div class="form-list-item">
+                <div class="form-list-name">
+                    {form.title}
+                </div>
+                <Button icon="fas fa-edit" on:click={() => activeFormId = form.form_id}>
+                    Manage Form
+                </Button>
+            </div>
+        {/each}
+    {/if}
 </div>
 
 <svelte:window bind:innerWidth={windowWidth}/>
 
 <script>
-    import Card from "../components/Card.svelte";
     import {notifyError, notifySuccess, nullIfBlank, withLoadingScreen} from '../js/util'
     import Button from "../components/Button.svelte";
     import axios from "axios";
     import {API_URL} from "../js/constants";
     import {setDefaultHeaders} from '../includes/Auth.svelte'
-    import Input from "../components/form/Input.svelte";
-    import Dropdown from "../components/form/Dropdown.svelte";
     import FormInputRow from "../components/manage/FormInputRow.svelte";
     import {flip} from "svelte/animate";
+    import RenameFormModal from "../components/manage/RenameFormModal.svelte";
+    import CreateModal from "../components/manage/CreateModal.svelte";
 
     export let currentRoute;
     let guildId = currentRoute.namedParams.id;
 
-    let defaultTeam = {id: 'default', name: 'Default'};
+    let createActive = false;
 
-    let newTitle;
     let forms = [];
     let toDelete = {};
     let activeFormId = null;
@@ -135,9 +123,9 @@
         notifySuccess('Form title updated');
     }
 
-    async function createForm() {
+    async function createForm(title) {
         let data = {
-            title: newTitle,
+            title: title.detail,
         };
 
         const res = await axios.post(`${API_URL}/api/${guildId}/forms`, data);
@@ -146,7 +134,8 @@
             return;
         }
 
-        notifySuccess(`Form ${newTitle} has been created`);
+        createActive = false;
+        notifySuccess(`Form ${title.detail} has been created`);
         newTitle = '';
 
         let form = res.data;
@@ -168,12 +157,7 @@
 
         notifySuccess(`Form deleted successfully`);
 
-        forms = forms.filter(form => form.form_id !== id);
-        if (forms.length > 0) {
-            activeFormId = forms[0].form_id;
-        } else {
-            activeFormId = null;
-        }
+        activeFormId = null;
     }
 
     function addInput() {
@@ -284,9 +268,10 @@
             i.style = i.style.toString();
         });
 
-        if (forms.length > 0) {
-            activeFormId = forms[0].form_id;
-        }
+        // if (forms.length > 0) {
+        //    activeFormId = forms[0].form_id;
+           // no longer want an active form to begin with 
+        // }
     }
 
     withLoadingScreen(async () => {
@@ -297,19 +282,73 @@
 
 <style>
     .parent {
-        display: flex;
-        justify-content: center;
         width: 100%;
         height: 100%;
+    }
+
+    .page-title-row{
+        display: flex;
+    }
+
+    :global(button){
+        width: 175px;
+        padding: 5px !important;
+        height: 40px;
+    }
+
+    .page-title-wrapper .title-dot{
+        width: 75px;
+    }
+
+    .refresh-wrapper :global(.danger){
+        margin-left: 10px;
     }
 
     .content {
         display: flex;
         justify-content: space-between;
-        width: 96%;
+        width: 100%;
         height: 100%;
         margin-top: 30px;
         margin-bottom: 50px;
+    }
+
+    .refresh-wrapper{
+        display: flex;
+        width: 100%;
+    }
+
+    .refresh-button{
+        height: 35px;
+        width: 45px;
+        /* background-color: blue; */
+        border-radius: 8px;
+        text-align: center;
+        margin-top: 10px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, .06);
+        cursor: pointer;
+        transition: .2s ease-in-out;
+    }
+
+    .refresh-button:hover{
+        background-color: var(--primary-color);
+    }
+
+    .refresh-button i{
+        line-height: 35px;
+        font-size: 20px;
+    }
+
+    .new-input{
+        width: 100%;
+        text-align: center;
+        margin-top: 5px;
+        background-color: var(--fg-color);
+        box-shadow: var(--shadow);
+        padding: 10px;
+        border-radius: 6px;
+        cursor: pointer;
     }
 
     .body-wrapper {
@@ -317,7 +356,7 @@
         flex-direction: column;
         width: 100%;
         height: 100%;
-        padding: 1%;
+        padding: 0 1% 1% 1%;
     }
 
     .section {
@@ -331,9 +370,33 @@
         margin-top: 2%;
     }
 
+    .form-input-row{
+        background-color: var(--fg-color);
+        box-shadow: var(--shadow);
+        padding: 10px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+    }
+
     .section-title {
         font-size: 36px;
         font-weight: bolder !important;
+    }
+
+    .form-list-item{
+        background-color: var(--fg-color);
+        box-shadow: var(--shadow);
+        padding: 10px 15px;
+        border-radius: 6px;
+        margin-bottom: 7px;
+        display: flex;
+        align-items: center;
+    }
+
+    .form-list-item .form-list-name{
+        font-weight: bold;
+        font-size: 18px;
+        width: 100%;
     }
 
     h3 {

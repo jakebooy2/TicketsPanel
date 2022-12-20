@@ -6,8 +6,7 @@
 
         <div slot="body" class="modal-inner">
           <div>
-            <label class="form-label" style="margin-bottom: 0 !important;">Use User ID</label>
-            <Toggle hideLabel
+            <ToggleBox label="Use User ID"
                     toggledColor="#66bb6a"
                     untoggledColor="#ccc"
                     bind:toggled={blacklistById}/>
@@ -56,6 +55,62 @@
 
 {#if data}
   <div class="parent">
+    <div class="page-title-row">
+        <div class="page-title-wrapper" style="width: 86%;">
+            <div class="page-title">
+                Blacklist
+            </div>
+            <div class="title-dot">&nbsp;</div>
+        </div>
+        <Button icon="fas fa-ban" gap on:click={() => blacklistUserModal = true}>
+            Blacklist User
+        </Button>
+        <Button icon="fas fa-ban" gap on:click={() => blacklistRoleModal = true}>
+            Blacklist Role
+        </Button>
+    </div>
+
+    <h3 class="title">Blacklisted Users</h3>
+    {#if data.users.length == 0}
+        <div class="blacklist-item">
+            <div class="blacklist-name">
+                There are no blacklisted users
+            </div>
+        </div>
+    {/if}
+
+    <h3 class="title">Blacklisted Roles</h3>
+    {#if data.roles.length == 0}
+        <div class="blacklist-item">
+            <div class="blacklist-name">
+                There are no blacklisted roles
+            </div>
+        </div>
+    {/if}
+    {#each data.roles as role}
+        <div class="blacklist-item">
+            <div class="blacklist-name">
+                {#if role.name === ''}
+                    Unknown ({role.id})
+                {:else}
+                    {role.name}
+                {/if}
+            </div>
+            <Button type="button" danger icon="fas fa-trash-can" on:click={() => removeRoleBlacklist(role)}>
+                Remove
+              </Button>
+        </div>
+    {/each}
+
+    <div class="row nav">
+        <i class="fas fa-chevron-left pagination-chevron" class:disabled-chevron={page <= 1}
+           on:click={loadPrevious}></i>
+        <span>Page {page}</span>
+        <i class="fas fa-chevron-right pagination-chevron"
+           class:disabled-chevron={data.users.length < data.page_limit && data.roles.length < data.page_limit}
+           on:click={loadNext}></i>
+      </div>
+
     <div class="content">
       <div class="main-col">
         <Card footer={false}>
@@ -149,6 +204,7 @@
     import Toggle from "svelte-toggle";
     import Input from "../components/form/Input.svelte";
     import RoleSelect from "../components/form/RoleSelect.svelte";
+  import ToggleBox from "../components/form/ToggleBox.svelte";
 
     export let currentRoute;
     let guildId = currentRoute.namedParams.id;
@@ -296,19 +352,17 @@
 
 <style>
     .parent {
-        display: flex;
-        justify-content: flex-start;
-        padding-left: 2%;
         width: 100%;
         height: 100%;
     }
 
-    .content {
+    .page-title-row{
         display: flex;
-        justify-content: space-between;
-        width: 60%;
+    }
+
+    .content {
+        width: 100%;
         height: 100%;
-        margin-top: 30px;
         padding-bottom: 4%;
     }
 
@@ -436,6 +490,10 @@
         }
     }
 
+    .title{
+        color: rgba(255, 255, 255, .6);
+    }
+
     .modal-backdrop {
         position: fixed;
         top: 0;
@@ -445,5 +503,20 @@
         z-index: 500;
         background-color: #000;
         opacity: .5;
+    }
+
+    .blacklist-item{
+        padding: 5px 10px;
+        border-radius: 6px;
+        background-color: var(--fg-color);
+        box-shadow: var(--shadow);
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .blacklist-item .blacklist-name{
+        font-size: 18px;
+        width: 100%;
     }
 </style>

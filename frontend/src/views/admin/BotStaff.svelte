@@ -1,43 +1,40 @@
 <div class="wrapper">
-  <div class="page-title">
-    Admin
-  </div>
+    <div class="page-title-wrapper">
+        <div class="page-title">
+            Bot Staff
+        </div>
+        <div class="title-dot">&nbsp;</div>
+    </div>
 
   <Card footer="{false}" fill="{false}">
-    <h4 slot="title">Bot Staff</h4>
+    <h4 slot="title">Add staff member</h4>
     <div slot="body" class="full-width body-wrapper">
       <form class="form-wrapper" on:submit|preventDefault={addStaff}>
         <Input label="User ID" placeholder="585576154958921739" bind:value={tempUserId} />
         <Button type="submit">Add</Button>
       </form>
-
-      <table>
-        <thead>
-        <tr>
-          <th>Username</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        {#each staff as user}
-          <tr class="bg">
-            <td>{user.username}#{user.discriminator.padStart(4, '0')} ({user.id})</td>
-            <td>
-              <button type="button" class="delete-button" danger on:click={() => removeStaff(user.id)}>
-                Delete
-              </button>
-            </td>
-          </tr>
-        {/each}
-        {#if staff.length == 0}
-          <tr class="bg">
-            <td>No staff found.</td>
-          </tr>
-        {/if}
-        </tbody>
-      </table>
     </div>
   </Card>
+
+  {#each staff as user}
+    <div class="user-row">
+        <div class="user-info">
+            <div class="user-name">{user.username}<span>#{user.discriminator.padStart(4, '0')}</span></div>
+            <div class="user-id">{user.id}</div>
+        </div>
+        <div class="delete-button" on:click={removeStaff(user.id)}>
+            Remove
+        </div>
+    </div>
+  {/each}
+
+  {#if staff.length == 0}
+    <div class="user-row">
+        <div class="user-info">
+            <div class="user-name">No staff found</div>
+        </div>
+    </div>
+  {/if}
 </div>
 
 <script>
@@ -100,17 +97,11 @@
         flex-direction: column;
         height: 100%;
         width: 100%;
-        align-items: center;
         padding: 0 25px 10px 25px;
     }
 
-    .page-title{
-      float: left;
-      text-align: left;
-      width: 100%;
-      font-size: 28px;
-      font-weight: bold;
-      margin-bottom: 15px;
+    .page-title-wrapper .title-dot{
+        width: 100px;
     }
 
     .content {
@@ -171,7 +162,9 @@
     }
 
     .delete-button{
-      padding: 5px 15px !important;
+      padding: 7px 15px !important;
+      height: 37px;
+      margin-top: 5px;
       border: none;
       background-color: #dc3545 !important;
       border-color: #dc3545 !important;
@@ -179,10 +172,42 @@
       color: white;
       transition: .2s ease-in-out !important;
       cursor: pointer !important;
+      float: right;
     }
 
     .delete-button:hover:enabled, .delete-button:active {
       background-color: rgba(11, 11, 11, .2) !important;
       border-color: rgba(11, 11, 11, .2) !important;
+    }
+
+    .user-row{        
+        display: flex;
+        gap: 10px;
+        margin-top: 15px; 
+        
+        background-color: var(--fg-color);
+        border-radius: 6px;
+        padding: 10px 20px;
+        box-shadow: 0 6px 6px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+    }
+
+    .user-row .user-info{
+        width: 100%;
+    }
+
+    .user-row .user-info .user-name{
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .user-row .user-info span{
+        font-weight: normal;
+        color: rgba(255, 255, 255, .6);
+    }
+
+    .user-row .user-id{
+        color: rgba(255, 255, 255, .5);
+        margin-top: -2px;
+        font-size: 14px;
     }
 </style>

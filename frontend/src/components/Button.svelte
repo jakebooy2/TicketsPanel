@@ -1,4 +1,4 @@
-<button on:click isTrigger="1" class:fullWidth class:danger class:iconOnly {disabled} {type}>
+<button on:click isTrigger="1" class:gap class:fullWidth class:danger class:iconOnly {disabled} {type}>
   {#if icon !== undefined}
     <i class="{icon}"></i>
   {/if}
@@ -16,6 +16,7 @@
     export let type = "submit";
     export let danger = false;
     export let iconOnly = false;
+    export let gap = false;
 </script>
 
 <style>
@@ -28,7 +29,7 @@
         text-align: center;
 
         color: white;
-        background-color: #995DF3;
+        background-color: #873ef5;
         border: none;
         border-radius: .25rem;
         margin: 0;
@@ -48,6 +49,10 @@
         background-color: rgba(255, 255, 255, .2);
         cursor: default;
         opacity: .4;
+    }
+
+    .gap{
+        margin-right: 10px;
     }
 
     .content {

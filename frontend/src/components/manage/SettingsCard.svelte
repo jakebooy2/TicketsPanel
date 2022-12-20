@@ -1,18 +1,18 @@
 {#if data}
-  <Card footer="{false}" fill="{false}">
+  <!-- <Card footer="{false}" fill="{false}">
   <span slot="title">
     Settings
-  </span>
+  </span> -->
 
-    <div slot="body" class="body-wrapper">
+    <div class="body-wrapper">
       <form class="settings-form" on:submit|preventDefault={updateSettings}>
         <Collapsible defaultOpen>
           <span slot="header">General</span>
           <div slot="content" class="col-1">
             <div class="row">
 <!--              <Input label="prefix (max len. 8)" placeholder="t!" col4 bind:value={data.prefix}/>-->
-              <Number label="per user simultaneous ticket limit" min=1 max=10 bind:value={data.ticket_limit}/>
-              <Dropdown label="Language" bind:value={data.language}>
+              <Number label="per user simultaneous ticket limit" min=1 max=10 bind:value={data.ticket_limit} col3/>
+              <Dropdown label="Language" bind:value={data.language} col3>
                 <option value=null selected="selected">Server Default</option>
                 {#if data.languages}
                   {#each data.languages as language}
@@ -20,9 +20,11 @@
                   {/each}
                 {/if}
               </Dropdown>
-              <Toggle label="allow users to close tickets" bind:value={data.users_can_close}/>
-              <Toggle label="ticket close confirmation" bind:value={data.close_confirmation}/>
-              <Toggle label="Enable User Feedback" bind:value={data.feedback_enabled}/>
+            </div>
+            <div class="row">
+                <ToggleBox label="allow users to close tickets" bind:value={data.users_can_close}/>
+                <ToggleBox label="ticket close confirmation" bind:value={data.close_confirmation}/>
+                <ToggleBox label="Enable User Feedback" bind:value={data.feedback_enabled}/>
             </div>
           </div>
         </Collapsible>
@@ -44,11 +46,11 @@
                   {/if}
                 {/each}
               </Dropdown>
-              <Toggle label="Store Ticket Transcripts" bind:value={data.store_transcripts}/>
-              <Toggle label="Hide Claim Button" bind:value={data.hide_claim_button}/>
             </div>
 
             <div class="row">
+                <ToggleBox label="Store Ticket Transcripts" bind:value={data.store_transcripts}/>
+                <ToggleBox label="Hide Claim Button" bind:value={data.hide_claim_button}/>
             </div>
           </div>
         </Collapsible>
@@ -57,7 +59,9 @@
           <span slot="header">/Open Command</span>
           <div slot="content" class="col-1">
             <div class="row">
-              <Toggle label="Disable /open Command" bind:value={data.disable_open_command}/>
+                <ToggleBox label="Disable /open Command" bind:value={data.disable_open_command}/>
+            </div>
+            <div class="row">
               <CategoryDropdown label="Channel Category" col3 channels={channels} bind:value={data.category}/>
               <NamingScheme bind:value={data.naming_scheme}/>
             </div>
@@ -80,9 +84,11 @@
                 <option value="2">Administrator</option>
               </Dropdown>
 
-              <Toggle label="Add Message Sender To Ticket" bind:value={data.context_menu_add_sender}/>
               <SimplePanelDropdown label="Use Settings From Panel" col3 allowNone={true} bind:panels
                                    bind:value={data.context_menu_panel}/>
+            </div>
+            <div class="row">
+                <ToggleBox label="Add Message Sender To Ticket" bind:value={data.context_menu_add_sender}/>
             </div>
           </div>
         </Collapsible>
@@ -91,9 +97,9 @@
           <span slot="header">Claiming</span>
           <div slot="content" class="col-1">
             <div class="row">
-              <Toggle label="SUPPORT REPS CAN VIEW CLAIMED TICKETS" bind:value={data.claim_settings.support_can_view}
+              <ToggleBox label="SUPPORT REPS CAN VIEW CLAIMED TICKETS" bind:value={data.claim_settings.support_can_view}
                         on:change={validateView}/>
-              <Toggle label="SUPPORT REPS CAN TYPE IN CLAIMED TICKETS"
+              <ToggleBox label="SUPPORT REPS CAN TYPE IN CLAIMED TICKETS"
                         bind:value={data.claim_settings.support_can_type}
                         on:change={validateType}/>
             </div>
@@ -104,8 +110,8 @@
           <span slot="header">Auto Close</span>
           <div slot="content" class="col-1">
             <div class="row">
-              <Toggle label="Enabled" bind:value={data.auto_close.enabled}/>
-              <Toggle label="Close On User Leave" disabled={!data.auto_close.enabled}
+              <ToggleBox label="Enabled" bind:value={data.auto_close.enabled}/>
+              <ToggleBox label="Close On User Leave" disabled={!data.auto_close.enabled}
                         bind:value={data.auto_close.on_user_leave}/>
             </div>
 
@@ -137,9 +143,9 @@
         <Collapsible tooltip="Define which permissions are given to users in ticket channels">
           <span slot="header">Ticket Permissions</span>
           <div slot="content" class="row">
-            <Toggle label="Attach Files" bind:value={data.ticket_permissions.attach_files}/>
-            <Toggle label="Embed Links" bind:value={data.ticket_permissions.embed_links}/>
-            <Toggle label="Add Reactions" bind:value={data.ticket_permissions.add_reactions}/>
+            <ToggleBox label="Attach Files" bind:value={data.ticket_permissions.attach_files}/>
+            <ToggleBox label="Embed Links" bind:value={data.ticket_permissions.embed_links}/>
+            <ToggleBox label="Add Reactions" bind:value={data.ticket_permissions.add_reactions}/>
           </div>
         </Collapsible>
 
@@ -163,7 +169,7 @@
         </div>
       </form>
     </div>
-  </Card>
+  <!-- </Card> -->
 {/if}
 
 <script>
@@ -189,6 +195,7 @@
     import PremiumBadge from "../PremiumBadge.svelte";
     import {toDays, toHours, toMinutes} from "../../js/timeutil";
     import Toggle from "../form/Toggle.svelte";
+  import ToggleBox from "../form/ToggleBox.svelte";
 
     export let guildId;
 
